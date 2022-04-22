@@ -211,10 +211,11 @@
 
 /* 底部模块制作 */
 .footer {
+    margin: auto;
     height: 415px;
     padding-top: 30px;
     background-color: #e4ebe3;
-    padding-left: 100px;
+    padding-left: 200px;
     text-align: center;
 }
 

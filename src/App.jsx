@@ -28,8 +28,6 @@ class Header extends React.Component {
                                 <li></li>
                                 <li><a href="/#/addbook">Sell a book</a></li>
                                 <li></li>
-                                {/* <li><a href="">My account</a></li>
-                                <li></li> */}
                                 <li><a href="">Contact us</a></li>
                                 <li></li>
                             </ul>
@@ -37,29 +35,29 @@ class Header extends React.Component {
                     </div>
                 </section>
 
-                <header class="header w">
+                <header className="header w">
 
-                    <div class="logo">
-                        <img src="images/logo.png" width="160%" onClick={this.props.showHomePage}></img>
+                    <div className="logo">
+                        <img src="images/logo.png" width="160%" onClick={()=>{window.location.href="/#/homepage"}}></img>
                     </div>
 
-                    <div class="search">
+                    <div className="search">
                         <input type="search" name="" id="" placeholder="Title/ Course/ Author"></input>
                         <button>Search</button>
                     </div>
 
-                    <div class="hotwords">
-                        <a href="#" class="style_red">Discounts</a>
+                    <div className="hotwords">
+                        <a href="#" className="style_red">Discounts</a>
                         <a href="#">Daily Vouchers</a>
                         <a href="#">Computing</a>
                         <a href="#">Engineering</a>
                         <a href="#">Architecture</a>
                         <a href="#">Literature</a>
                     </div>
-                    <div class="shopcar">
+                    <div className="shopcar">
                         <img src="images/cart.png" width="20px" height="20px"></img>
                         <a href="">  My shopping cart</a>
-                        <i class="count">3</i>
+                        <i className="count">3</i>
                     </div>
                 </header>
             </div>
@@ -73,7 +71,7 @@ class Footer extends React.Component {
     render() {
         return (
             <footer className='footer' >
-                <div class="mod_help">
+                <div className="mod_help">
                     <dl>
                         <dt>ORGANIZATION</dt>
                         <dd><a href="">About us</a></dd>
@@ -109,11 +107,12 @@ const divStyle = {
 class HP_Nav extends React.Component {
     render() {
         return (
-            <nav class="nav">
-                <div class="w">
-                    <div class="dropdown">
-                        <div class="dt"> All textbook genres</div>
-                        <div class="dd" style={divStyle}>
+            <nav className="nav">
+                <div className="w">
+                    <div className="dropdown">
+                        <div className="dt"> All textbook genres</div>
+                        <div className="dd">
+                        {/* <div className="dd" style={divStyle}> */}
                             <ul>
                                 <li><a href="#">Art</a> </li>
                                 <li><a href="#">Biography</a> </li>
@@ -134,7 +133,7 @@ class HP_Nav extends React.Component {
                             </ul>
                         </div>
                     </div>
-                    <div class="navitems">
+                    <div className="navitems">
                         <ul>
                             <li><a href="#">Faculty of Sciences</a></li>
                             <li><a href="#">Faculty of Engineering</a></li>
@@ -148,35 +147,36 @@ class HP_Nav extends React.Component {
         )
     }
 }
+
 class HP_Main extends React.Component {
     render() {
         return (
-            <div class="w">
-                <div class="main">
-                    <div class="focus">
-                        <a href="" class="left-arrow">
+            <div className="w">
+                <div className="main">
+                    <div className="focus">
+                        <a href="" className="left-arrow">
                         </a>
-                        <a href="" class="right-arrow">
+                        <a href="" className="right-arrow">
                         </a>
                         <ul>
                             <li>
                                 <img src="images/1.png" alt="" width="100%" height="450px"></img>
                             </li>
                         </ul>
-                        <ul class="circle">
+                        <ul className="circle">
                             <li></li>
                             <li></li>
-                            <li class="current"></li>
+                            <li className="current"></li>
                             <li></li>
                         </ul>
                     </div>
-                    <div class="newsflash">
-                        <div class="news">
-                            <div class="news-hd">
+                    <div className="newsflash">
+                        <div className="news">
+                            <div className="news-hd">
                                 <h5>News</h5>
-                                <a href="" class="more">More</a>
+                                <a href="" className="more">More</a>
                             </div>
-                            <div class="news-bd">
+                            <div className="news-bd">
                                 <ul>
                                     <li><a href=""><strong>[Hot]</strong> Get ready to new semester sale!</a></li>
                                     <li><a href=""><strong>[Hot]</strong> Come and get daily cashback up to 10%!</a></li>
@@ -186,97 +186,179 @@ class HP_Main extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div class="news">
-                            <div class="news-hd">
+                        <div className="news">
+                            <div className="news-hd">
                                 <h5>Top Reviews</h5>
                             </div>
-                            <div class="news-bd">
+                            <div className="news-bd">
                                 <img src="images/ad1.jpeg" alt="" width="100%"></img>
                             </div>
-                            <div class="news-bd">
+                            <div className="news-bd">
                                 <img src="images/ad3.jpeg" alt="" width="100%"></img>
                             </div>
                         </div>
-                        <div class="bargain"><img src="images/bargain.png" alt=""></img></div>
                     </div>
                 </div>
             </div>
         )
     }
 }
-class HP_Rec extends React.Component {
-    render() {
-        return (
-            <div class="w recom">
-                <div class="recom_hd">
-                    <img src="images/recom.png" alt="" weight="180px" height="180px"></img>
-                </div>
-                <div class="recom_bd">
-                    <ul>
-                        <li><img src="images/book1.jpeg" alt="" height="100%"></img></li>
-                        <li><img src="images/book2.jpeg" alt="" height="100%"></img></li>
-                        <li><img src="images/book3.jpeg" alt="" height="100%"></img></li>
-                        {/* <li onClick={this.props.showDetailPage}><img src="images/book4.jpeg" alt="" height="100%"></img></li> */}
-                        <li><img src="images/book4.jpeg" alt="" height="100%"></img></li>
-                        <li><img src="images/book5.jpeg" alt="" height="100%"></img></li>
-                        <li><img src="images/book6.jpeg" alt="" height="100%"></img></li>
-                        <li><img src="images/book7.png" alt="" height="100%"></img></li>
-                        <li><img src="images/book8.jpeg" alt="" height="100%"></img></li>
-                    </ul>
-                </div>
-            </div>
+
+
+function HP_book(props) {
+    const book = props.book;
+    const booklink = `#/detail/${book.title}`
+    return(
+        <div className="abook">
+            <img src = {book.photo} ></img>
+            <li className="abook_title" ><a href={booklink}> {book.title}</a></li>
+            <li className="abook_price"> $ {book.price}</li>
+        </div>
         )
-    }
 }
 
-class Homepage extends React.Component {
-    render() {
-        // const display = this.props.display;
+// class Homepage extends React.Component {
+function Homepage(props) {
+    const books = props.books.map(book =><HP_book book={book}/>)
+    // console.log(books)
+    // render() {
         return (
-            // display &&
             <React.Fragment>
                 <Header />
                 <HP_Nav />
                 <HP_Main />
                 {/* <HP_Rec showDetailPage={() => this.props.showDetailPage()} /> */}
-                <HP_Rec />
+                <div className = "w sk_container">
+                    <h2>New Arrivals</h2>
+                    <ul className="clearfix">
+                    {books}
+                    </ul>
+                </div>
                 <Footer />
             </React.Fragment>
         )
-    }
+        //}
 }
 
-// 3. Sign up Page
-
-// 4. Login Page
+// 3. Login Page
 class Login extends React.Component {
+
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const form = document.forms.login;
+        const user = {
+            email: form.email.value,
+            password: form.password.value,
+        }
+        // console.log(user)
+        this.props.checkUser(user);
+        form.email.value = ""; form.password.value = "";
+    }
+
+
     render() {
-        // const display = this.props.display;
         return (
             // display &&
-            <div class="w">
+            <div className="w">
                 <header>
-                    <div class="logo">
+                    <div className="logo">
+                        <img src="images/logo.png" alt="" />
+                    </div>
+                </header>
+                <div className="loginarea">
+                    <h3>
+                        Sign in
+                        <div className="login">Already have an account?<a href=""> Sign in</a></div>
+                    </h3>
+                    <div className="reg-form">
+                        <form name="login" onSubmit={this.handleSubmit}>
+                            <ul>
+                                <li><label for="">Email: </label> <input type="text" name="email" className="inp" />
+                                    <span className="success"><i className="success_icon"></i>
+                                        Email format is correct</span>
+                                </li>
+                                <li><label for="">Password: </label> <input type="password" name="password" className="inp" />
+                                    <span className="error"><i className="error_icon"></i>
+                                        Password format is not correct</span>
+                                </li>
+
+                                <li>
+                                    <input type="submit" value="SIGN IN" className="btn" />
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        );
+    }
+}
+// 4. Sign up Page
+class Signup extends React.Component {
+
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const form = document.forms.register;
+        const user = {
+            name: form.name.value, email: form.email.value,
+            phone: form.phone.value, password: form.password.value,
+            purchase: 0, sell: 0,
+        };
+        // const agree = form.agree.value;
+        // console.log(form.agree.checked)
+        if (form.agree.checked === true) {
+            this.props.createUser(user);
+        } else {
+            alert("please agree to our terms of services")
+        }
+
+        form.name.value = ""; form.phone.value = ""; form.email.value = ""; form.password.value = "";
+    }
+
+
+    render() {
+        return (
+            // display &&
+            <div className="w">
+                <header>
+                    <div className="logo">
                         <img src="images/logo.png" alt="" onClick={this.props.showHomePage} />
                     </div>
                 </header>
-                <div className="registerarea ">
+                <div className="registerarea">
                     <h3>
                         New User Register
                         <div className="login">Already have an account?<a href=""> Sign in</a></div>
                     </h3>
-                    <div className="reg-form" onSubmit={this.handleSubmit}>
-                        <form name="register">
+                    <div className="reg-form">
+                        <form name="register" onSubmit={this.handleSubmit}>
                             <ul>
-                                <li><label for="">Phone Number: </label> <input type="text" className="inp" />
+                                <li><label for="">Name: </label> <input type="text" name="name" className="inp" />
+                                </li>
+                                <li><label for="">Phone Number: </label> <input type="text" name="phone" className="inp" />
                                     <span className="error"><i className="error_icon"></i>
                                         Phone number format is not correct</span>
                                 </li>
-                                <li><label for="">OTP: </label> <input type="text" className="inp" />
+                                <li><label for="">Email: </label> <input type="text" name="email" className="inp" />
+                                    <span className="success"><i className="success_icon"></i>
+                                        Email format is correct</span>
+                                </li>
+                                {/* <li><label for="">OTP: </label> <input type="text" className="inp" />
                                     <span className="success"><i className="success_icon"></i>
                                         OTP is correct</span>
-                                </li>
-                                <li><label for="">Password: </label> <input type="password" className="inp" />
+                                </li> */}
+                                <li><label for="">Password: </label> <input type="password" name="password" className="inp" />
                                     <span className="error"><i className="error_icon"></i>
                                         Password format is not correct</span>
                                 </li>
@@ -286,7 +368,7 @@ class Login extends React.Component {
                                     <span className="error"><i className="error_icon"></i>
                                         Password doesn't match</span>
                                 </li>
-                                <li className="agree"> <input type="checkbox" />  agree to our
+                                <li className="agree"> <input name="agree" type="checkbox" />  agree to our
                                     <a href=""> Terms of Service</a>
                                 </li>
                                 <li>
@@ -304,22 +386,41 @@ class Login extends React.Component {
 
 
 // 5. Book Detail Page
-class Detail extends React.Component {
 
-    render() {
+// class OrderAdd extends React.Component {
+//     constructor(){
+//         super();
+//         this.handleSubmit = this.handleSubmit.bind(this)
+//     }
+
+//     handelSubmit(e){}
+
+//     render(){
+//         <button>Buy Now</button>
+//     }
+
+// }
+
+
+
+function Detailpage(props){
+        const book = props.book;
+        const booklink = `/detail/${book.title}`;
+
         return (
-
+        <ReactRouterDOM.Route path={booklink}>
+            <Header />
             <div className="de_container w">
 
                 <div className="crumb_wrap">
-                    <a href="#">School of Computing</a> 〉 <a href="#">Computer Science   </a> 〉 <a href="#">A balanced introduction to Computer Science   </a>
+                    <a href="#">{book.category}</a> 〉 <a href="#">{book.course}  </a> 〉 <a href="#">{book.title}   </a>
                 </div>
 
                 <div className="product_intro clearfix">
 
                     <div className="preview_wrap fl">
                         <div className="preview_img">
-                            <img className="book_img" src="images/book4.jpeg" alt="" />
+                            <img className="book_img" src={book.photo} alt="" />
                         </div>
 
                         <div className="preview_list">
@@ -327,48 +428,46 @@ class Detail extends React.Component {
                             <a href="#" className="arrow_next"></a>
                             <ul className="list_item">
                                 <li>
-                                    <img src="images/book4.jpeg" alt="" />
+                                    <img src={book.photo} alt="" />
                                 </li>
-                                <li class="current">
-                                    <img src="images/book4.jpeg" alt="" />
-                                </li>
-                                <li>
-                                    <img src="images/book4.jpeg" alt="" />
+                                <li className="current">
+                                    <img src={book.photo} alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/book4.jpeg" alt="" />
+                                    <img src={book.photo} alt="" />
+                                </li>
+                                <li>
+                                    <img src={book.photo} alt="" />
                                 </li>
 
                             </ul>
                         </div>
                     </div>
 
-                    <div class="itemInfo_wrap fr">
+                    <div className="itemInfo_wrap fr">
                         <div className="sku_name">
-                            A balanced introduction to Computer Science
-
+                            {/* A balanced introduction to Computer Science */}
+                            {book.title}
                         </div>
                         <div className='sku_author'>
-                            By Reed, David
+                            {/* By Reed, David */}
+                            By {book.author}
                         </div>
                         <div className="summary">
                             <dl className="summary_price">
                                 <dt>Price</dt>
                                 <dd>
-                                    <i className="price">$15 </i>
-
-                                    <a href="#">List Price: <i>$179.99</i></a>
-
-
+                                    <i className="price">$ {book.price} </i>
+                                    <a href="#">List Price: <i>$29.99</i></a>
                                 </dd>
                             </dl>
                             <dl className="summary_introduction">
                                 <dt>Preview</dt>
                                 <dd>
-                                    A Balanced Introduction to Computer Science, This book is ideal for Introduction to Computing and the Web courses in departments of Math and Computer Science.
+                                    {/* A Balanced Introduction to Computer Science, This book is ideal for Introduction to Computing and the Web courses in departments of Math and Computer Science.
                                     This thoughtfully written text uses the Internet as a central theme, studying its history, technology, and current use. Experimental problems use Web-based tools, enabling students to learn programming fundamentals by developing their own interactive Web pages with HTML and JavaScript. Integrating breadth-based and depth-based chapters,
-                                    Reed covers a broad range of topics balanced with programming depth in a hands-on, tutorial style.
-
+                                    Reed covers a broad range of topics balanced with programming depth in a hands-on, tutorial style. */}
+                                    {book.description}
                                 </dd>
                             </dl>
                             <dl className="summary_promotion">
@@ -378,79 +477,111 @@ class Detail extends React.Component {
 
                                 </dd>
                             </dl>
+                            <button>Buy Now</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <Footer />
+            </ReactRouterDOM.Route>
         );
     }
-}
 
-class Detailpage extends React.Component {
-    render() {
-        // const display = this.props.display;
+
+function Detailpages(props) {
+        const books = props.books.map(book =><Detailpage book={book}/>)
+        console.log(books)
         return (
-            // display &&
-            <React.Fragment>
-                {/* <HP_Header showHomePage={() => this.props.showHomePage()} showLoginPage={() => this.props.showLoginPage()} /> */}
-                <Header />
-                <HP_Nav />
-                <Detail />
-                <Footer />
-            </React.Fragment>
+            <ReactRouterDOM.Switch>
+                {books}
+            </ReactRouterDOM.Switch>
         )
-    }
 }
 
 // 6. AddBook Page
-class AddBook extends React.Component {
+class AddBookPage extends React.Component {
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlerChange = this.handlerChange.bind(this);
+        this.state = {img:""}
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+        const form = document.forms.bookAdd;
+        const book = {
+          title: form.bk_title.value, 
+          author: form.bk_author.value,
+          price: form.bk_price.value,
+          category:form.bk_category.value,
+          course:form.bk_course.value,
+          description:"form.bk_des.value",
+        //   description:form.description.value,
+          photo: form.bk_photo.value,
+        //   due: new Date(new Date().getTime() + 1000*60*60*24*10),
+        }
+        this.props.createBook(book);
+        // alert("Add successfully!")
+        // form.bk_title.value="";form.bk_author.value="";form.bk_price.value=0;form.bk_category.value="",form.bk_course.value="",form.description.value="",form.bk_photo.value="";
+    }
+
+    handlerChange(){
+        const that = this
+        const file = document.getElementById('file').files[0]
+        if (file.type !== 'image/png'){
+            alert('please upload a png picture')
+            return
+        }
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function(result){
+            console.log(this.result)
+            that.setState({
+                img: this.result
+            })
+        }
+
+    }
+
     render() {
         return (
+            <React.Fragment>
+            <Header />
             <div className="ab_container w">
                 <h1> Add a new book</h1>
-                <form name="bookToAdd" onSubmit={this.handleAdd}>
-                    <p>Name:  <input type="text" id="bk_name" /></p>
-                    <p>Edition:  <input type="text" id="bk_edition" /></p>
-                    <p>Author:  <input type="text" id="bk_author" /></p>
-                    <p>Year of publish:   <input type="text" id="bk_year" /></p>
-                    <p>Price:  <input type="text" id="bk_price" /></p>
-                    <p>Category:   <input type="text" id="bk_category" /></p>
+                <form name="bookAdd" onSubmit={this.handleSubmit}>
+                    <p>Title: <input type="text" id="bk_title" /></p>
+                    <p>Author: <input type="text" id="bk_author" /></p>
+                    <p>Price: <input type="text" id="bk_price" /></p>
+                    <p>Category: <input type="text" id="bk_category" /></p>
+                    <p>Course: <input type="text" id="bk_course" /></p>
                     <div className="description">
                         <p>Description: </p>
-                        <div onFocus={this.handleFocus} onBlur={this.handleBlur} className="bk_des" ref="bk_des" contentEditable="true"></div>
+                        <div className="bk_des" ref="bk_des" contentEditable="true"></div>
                     </div >
                     <div className="photo">
                         <p>Post Photo:</p>
-                        <input type="file" />
+                        <input type="text" id="bk_photo" />
+                        {/* <p>Photo by file test:</p>
+                        <input type="file" id="file" accept="/image*" onChange={this.handlerChange}/>
+                        <img src={this.state.img} style = {{width='50px'},{float:'left'}} ></img> */}
                     </div>
                     <p></p>
-                    <button>Add</button>
+                    <button>Submit a book</button>
                 </form>
-
             </div>
-        )
-    }
-}
-
-class AddBookPage extends React.Component {
-    render() {
-        // const display = this.props.display;
-        return (
-            // display &&
-            <React.Fragment>
-                <Header />
-                <AddBook />
-                <Footer />
+            <Footer />
             </React.Fragment>
         )
     }
 }
+
+
 // 7. My order page
 function OrderRow(props) {
     return (
         <tr>
-            <td>1</td>
+            <td>0</td>
             <td>Intro to Computer Science</td>
             <td>01-01-2022</td>
             <td>Delivered</td>
@@ -535,6 +666,7 @@ function StarRating(props) {
             val = event.target.getAttribute("star-id");
         setSelection(val);
     };
+    console.log(rating)
     return (
         <div
             // hover setting
@@ -596,13 +728,123 @@ class ReviewPage extends React.Component {
         )
     }
 }
+
+async function graphQLFetch(query, variables = {}) {
+    try {
+      const response = await fetch('/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ query, variables })
+      });
+      const body = await response.text();
+      const result = JSON.parse(body, jsonDateReviver);
+  
+      if (result.errors) {
+        const error = result.errors[0];
+        if (error.extensions.code == 'BAD_USER_INPUT') {
+          const details = error.extensions.exception.errors.join('\n ');
+          alert(`${error.message}:\n ${details}`);
+        } else {
+          alert(`${error.extensions.code}: ${error.message}`);
+        }
+      }
+      return result.data;
+    } catch (e) {
+      alert(`Error in sending data to server: ${e.message}`);
+    }
+  }
+
 // 9. System page
 class Index extends React.Component {
     constructor() {
         super();
-        // this.state = {
-        //     diaplayStatus: { "homePage": true, 'detailPage': false, 'LoginPage': false }
-        // };
+        this.state = { 
+            books: [],
+            users: [],
+            currentUser: {},
+        };
+        this.createBook = this.createBook.bind(this);
+        this.createUser = this.createUser.bind(this);
+        this.checkUser = this.checkUser.bind(this);
+    
+    }
+
+    componentDidMount() {
+        this.loadBookData();
+        this.loadUserData();
+    }
+
+    async loadUserData() {
+        const query = `query {
+            userList {
+                _id name email phone password purchase sell
+            }
+        }`;
+
+        const data = await graphQLFetch(query);
+        // console.log(data.userList)
+        if (data) {
+            this.setState({ users: data.userList });
+            console.log(data.userList)
+        }
+    }
+
+    async createUser(user) {
+        const query = `mutation userAdd($user: UserInputs!) {
+          userAdd(user: $user)
+        }`;
+        const data = await graphQLFetch(query, { user });
+        // this.loadData();
+        // console.log(data);
+        if (data.userAdd == "Done") {
+            alert("Your registration is successful!");
+        }
+        else if (data.userAdd == "duplicated") {
+            alert("The email address has been used, please choose another email")
+        }
+    }
+
+    async checkUser(user) {
+        const query = `mutation userCheck($user: UserCheckInputs!) {
+            userCheck(user: $user)
+        }`;
+        const data = await graphQLFetch(query, { user });
+        // this.loadData();
+        // console.log(data);
+        if (data.userCheck == "notmatch") {
+            alert("Password doesn't match!");
+        }
+        else if (data.userCheck == "match") {
+            window.location.href = "http://localhost:3000/#/homepage";
+            alert("You are successfully logged in")
+        }
+    }
+
+    async loadBookData() {
+        const query = `query {
+          bookList {
+            id title author price description
+            category course photo sellerid
+          }
+        }`;
+    
+        const data = await graphQLFetch(query);
+        if (data) {
+          this.setState({ books: data.bookList });
+        }
+    }
+
+    async createBook(book) {
+        const query = `mutation bookAdd($book: BookInputs!) {
+          bookAdd(book: $book) {
+            _id
+          }
+        }`;
+    
+        const data = await graphQLFetch(query, { book });
+        if (data) {
+          this.loadBookData();
+        }
     }
 
     render() {
@@ -614,13 +856,16 @@ class Index extends React.Component {
                 <ReactRouterDOM.Switch>
                     <ReactRouterDOM.Redirect exact from="/" to="/homepage" />
                     <ReactRouterDOM.Route path="/homepage">
-                        <Homepage />
+                        <Homepage books={this.state.books} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/detail">
-                        <Detailpage />
+                        <Detailpages books={this.state.books}/>
+                    </ReactRouterDOM.Route>
+                    <ReactRouterDOM.Route path="/signup">
+                        <Signup createUser={this.createUser} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/login">
-                        <Login />
+                        <Login checkUser={this.checkUser}/>
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/order">
                         <OrderPage />
@@ -629,7 +874,7 @@ class Index extends React.Component {
                         <ReviewPage />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/addbook">
-                        <AddBookPage />
+                        <AddBookPage createBook={this.createBook}/>
                     </ReactRouterDOM.Route>
                 </ReactRouterDOM.Switch>
             </React.Fragment>
@@ -647,8 +892,3 @@ ReactDOM.render(
     element,
     document.getElementById('content')
 );
-
-// ReactDOM.render(
-//     <OrderPage />,
-//     document.getElementById('content')
-// );

@@ -2,26 +2,24 @@ scalar GraphQLDate
 
 type User {
   _id: ID!
-  id: Int!
   name: String!
   email: String!
   phone: String!
   password: String!
-  purchase: Int
-  sell: Int
+  purchase: Int!
+  sell: Int!
 }
 
 type Book {
   _id: ID!
   id: Int!
-  name: String!
-  edition: String
+  title: String!
   author: String
-  year: String
-  price: Double!
+  price: Float!
   description: String!
   category: String
   course: String
+  photo: String
   sellerid: Int!
 }
 
@@ -29,6 +27,7 @@ type Order {
   _id: ID!
   id: Int!
   bookid: Int!
+  buyerid: Int! 
   delivered: Boolean!
   review: String!
   created: GraphQLDate!
@@ -37,10 +36,9 @@ type Order {
 type Review {
   _id: ID!
   id: Int!
-  reviewerid: Int!
-  revieweeid:  Int!
+  orderid : Int!
   rate: Int!
-  comments: string! 
+  comments: String! 
   created: GraphQLDate!
 }
 
@@ -49,32 +47,44 @@ input UserInputs {
   name: String!
   email: String!
   phone: String!
-  password: Int
+  password: String!
+  purchase: Int!
+  sell: Int!
+}
+
+input UserCheckInputs {
+  email: String!
+  password: String!
 }
 
 input BookInputs {
-  name: String!
-  edition: String
+  title: String!
   author: String
-  year: Int
-  price: Double!
+  price: Float!
   description: String!
   category: String
   course: String
+  photo: String
 }
 
-
+input ReviewInputs {
+  rate: Int
+  comment: String
+}
 
 ##### Top level declarations
 type Query {
   about: String!
   bookList: [Book!]!
-  orderList: [Order!]!
+  userList: [User!]!
+  usernum: Int!
   
 }
 
 type Mutation {
   setAboutMessage(message: String!): String
-  userAdd(user: UserInputs!): User!
+  userAdd(user: UserInputs!): String
+  userCheck(user: UserCheckInputs!): String
   bookAdd(book: BookInputs!): Book!
+  reviewAdd(review: ReviewInputs!): Review!
 }

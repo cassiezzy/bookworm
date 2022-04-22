@@ -43,7 +43,8 @@
 .list_item li img {
 	display: inline-block;
 	vertical-align: middle;
-	width: 36px;
+	width: 50px;
+	height:auto;
 }
 .list_item li.current {
 	border-color: #c81623;
@@ -58,11 +59,11 @@
 }
 .arrow_prev {
 	left: 0;
-	background: url(../img/arrow-prev.png) no-repeat;
+	background: url(./img/arrow-prev.png) no-repeat;
 }
 .arrow_next {
 	right: 0;
-	background: url(../img/arrow-next.png) no-repeat;
+	background: url(./img/arrow-next.png) no-repeat;
 }
 .itemInfo_wrap {
 	width: 718px;
@@ -139,6 +140,18 @@
 .summary_support dd {
 	line-height: 36px;
 }
+
+.summary button {
+    background-color:#5d9777;
+    border-radius: 5px;
+    color: white;
+    padding: 12px 30px;
+    text-align: center;
+    display: inline-block;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
 .choose_color a {
 	display: inline-block;
 	width: 80px;

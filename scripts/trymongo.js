@@ -18,8 +18,7 @@ const url = 'mongodb://localhost/bookworm';
       const collection = db.collection('books');
 
       console.log('\n--- testAdd ---');
-      const book_1 = {id:1,name:"B1",edition:"1",author:"cat",year:"2021",price:12.12,description:"a good book!",category:"cs",course:"IT5007",sellerid:"1"};
-      // const book_2 = {id:2,name:"B2",edition:"2",author:"dog",year:"2021",price:6.6,description:"a good book too!",category:"cs",course:"IT5007",sellerid:"2"};
+      const book_1 = {id:1,title:"B1",author:"cat",price:12.12,description:"a good book!",category:"cs",course:"IT5007",photo:"pic1",sellerid:"1"};
       
       const result_1 = await collection.insertOne(book_1);
       console.log('Result of insert:\n', result_1.insertedId);
@@ -28,7 +27,7 @@ const url = 'mongodb://localhost/bookworm';
       console.log('Result of find:\n', docs_1);
 
       console.log('\n--- testRead ---');
-      const book_2 = {id:2,name:"B2",edition:"2",author:"dog",year:"2021",price:6.6,description:"a good book too!",category:"cs",course:"IT5007",sellerid:"2"};
+      const book_2 = {id:2,title:"B2",author:"dog",price:6.6,description:"a good book too!",category:"cs",course:"IT5007",photo:"pic2",sellerid:"2"};
       const result_2 = await collection.insertOne(book_2);
       const docs_2 = await collection.find()
         .toArray();

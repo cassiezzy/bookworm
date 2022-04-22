@@ -15,7 +15,20 @@
 }
 
 
-.left-arrow,
+.left-arrow {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    display: block;
+    width: 24px;
+    height: 40px;
+    background: url(./img/arrow-prev.png) no-repeat;
+    color: #fff;
+    font-size: 18px;
+    text-align:center;
+    line-height: 40px;
+}
+
 .right-arrow {
     position: absolute;
     top: 50%;
@@ -23,7 +36,7 @@
     display: block;
     width: 24px;
     height: 40px;
-    background: rgba(0,0,0,.3);
+    background: url(./img/arrow-next.png) no-repeat;
     color: #fff;
     font-size: 18px;
     text-align:center;
