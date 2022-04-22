@@ -11,10 +11,10 @@ $ npm install
 $ screen mongod 
 
 //create mongoDB database named railwaybooking in mongo shell
-> use railwaybooking
+> use bookworm
 
 // initialize the database 
-$ mongo railwaybooking scripts/init.mongo.js 
+$ mongo bookworm scripts/init.mongo.js 
 
 // run server
 $ npm start
