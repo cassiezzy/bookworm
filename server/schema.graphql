@@ -1,0 +1,80 @@
+scalar GraphQLDate
+
+type User {
+  _id: ID!
+  id: Int!
+  name: String!
+  email: String!
+  phone: String!
+  password: String!
+  purchase: Int
+  sell: Int
+}
+
+type Book {
+  _id: ID!
+  id: Int!
+  name: String!
+  edition: String
+  author: String
+  year: String
+  price: Double!
+  description: String!
+  category: String
+  course: String
+  sellerid: Int!
+}
+
+type Order {
+  _id: ID!
+  id: Int!
+  bookid: Int!
+  delivered: Boolean!
+  review: String!
+  created: GraphQLDate!
+}
+
+type Review {
+  _id: ID!
+  id: Int!
+  reviewerid: Int!
+  revieweeid:  Int!
+  rate: Int!
+  comments: string! 
+  created: GraphQLDate!
+}
+
+"Inputs"
+input UserInputs {
+  name: String!
+  email: String!
+  phone: String!
+  password: Int
+}
+
+input BookInputs {
+  name: String!
+  edition: String
+  author: String
+  year: Int
+  price: Double!
+  description: String!
+  category: String
+  course: String
+}
+
+
+
+##### Top level declarations
+type Query {
+  about: String!
+  bookList: [Book!]!
+  orderList: [Order!]!
+  
+}
+
+type Mutation {
+  setAboutMessage(message: String!): String
+  userAdd(user: UserInputs!): User!
+  bookAdd(book: BookInputs!): Book!
+}
