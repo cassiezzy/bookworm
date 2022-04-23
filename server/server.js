@@ -35,13 +35,14 @@ const resolvers = {
     usernum,
     userList,
     bookList,
+    orderList,
   },
   Mutation: {
     setAboutMessage,
     userAdd,
     userCheck,
     bookAdd,
-    reviewAdd,
+    orderAdd,
   },
   GraphQLDate,
 };
@@ -54,7 +55,6 @@ async function usernum() {
   const usernum = await db.collection("users").find({}).count();
   return usernum;
 }
-
 
 async function userList() {
   const users = await db.collection("users").find({}).toArray();
@@ -121,23 +121,40 @@ async function bookAdd(_, { book }) {
   book.id = await getNextSequence('books');
   book.sellerid = 1; 
  
-
   const result = await db.collection('books').insertOne(book);
   const savedBook = await db.collection('books')
     .findOne({ _id: result.insertedId });
   return savedBook;
 }
 
-async function reviewAdd(_, { review }) {
-  // reviewValidate(review);
-  review.id = await getNextSequence('reviews');
-  review.orderid = 1;
-  review.created = new Date();
+// async function reviewAdd(_, { review }) {
+//   // reviewValidate(review);
+//   review.id = await getNextSequence('reviews');
+//   review.orderid = 1;
+//   review.created = new Date();
 
-  const result = await db.collection('reviews').insertOne(book);
-  const savedReview = await db.collection('reviews')
+//   const result = await db.collection('reviews').insertOne(book);
+//   const savedReview = await db.collection('reviews')
+//     .findOne({ _id: result.insertedId });
+//   return savedReview;
+// }
+
+
+async function orderList() {
+  const orders = await db.collection('orders').find({}).toArray();
+  return orders;
+}
+
+async function orderAdd(_, { order }) {
+  // orderValidate(order);
+  order.created = new Date();
+  // order.id = 1;
+  order.id = await getNextSequence('orders');
+
+  const result = await db.collection('orders').insertOne(order);
+  const savedOrder = await db.collection('orders')
     .findOne({ _id: result.insertedId });
-  return savedReview;
+  return savedOrder;
 }
 
 async function connectToDb() {

@@ -1,5 +1,12 @@
 scalar GraphQLDate
 
+enum StatusType {
+  Paid
+  Shipped
+  Delivered
+  Rated
+}
+
 type User {
   _id: ID!
   name: String!
@@ -26,10 +33,9 @@ type Book {
 type Order {
   _id: ID!
   id: Int!
-  bookid: Int!
+  booktitle: String!
   buyerid: Int! 
-  delivered: Boolean!
-  review: String!
+  status: StatusType!
   created: GraphQLDate!
 }
 
@@ -72,12 +78,19 @@ input ReviewInputs {
   comment: String
 }
 
+input OrderInputs {
+  status: StatusType = Paid
+  booktitle: String!
+  buyerid: Int!
+}
+
 ##### Top level declarations
 type Query {
   about: String!
   bookList: [Book!]!
   userList: [User!]!
   usernum: Int!
+  orderList: [Order!]!
   
 }
 
@@ -87,4 +100,5 @@ type Mutation {
   userCheck(user: UserCheckInputs!): String
   bookAdd(book: BookInputs!): Book!
   reviewAdd(review: ReviewInputs!): Review!
+  orderAdd(order: OrderInputs!):Order!
 }

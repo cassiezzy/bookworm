@@ -17,7 +17,7 @@ class Header extends React.Component {
                             <ul>
                                 <li>Welcome to Bookworm! &nbsp;</li>
                                 <li><a href="/#/login">Please log in | &nbsp;</a></li>
-                                <li><a href="/#/login">Sign up for free</a></li>
+                                <li><a href="/#/signup">Sign up for free</a></li>
                             </ul>
                         </div>
                         <div className="fr">
@@ -100,10 +100,6 @@ class Footer extends React.Component {
 }
 
 // 2. Homepage
-const divStyle = {
-    display: 'none',
-};
-
 class HP_Nav extends React.Component {
     render() {
         return (
@@ -112,7 +108,6 @@ class HP_Nav extends React.Component {
                     <div className="dropdown">
                         <div className="dt"> All textbook genres</div>
                         <div className="dd">
-                        {/* <div className="dd" style={divStyle}> */}
                             <ul>
                                 <li><a href="#">Art</a> </li>
                                 <li><a href="#">Biography</a> </li>
@@ -217,17 +212,15 @@ function HP_book(props) {
         )
 }
 
-// class Homepage extends React.Component {
+
 function Homepage(props) {
     const books = props.books.map(book =><HP_book book={book}/>)
-    // console.log(books)
-    // render() {
         return (
             <React.Fragment>
                 <Header />
                 <HP_Nav />
                 <HP_Main />
-                {/* <HP_Rec showDetailPage={() => this.props.showDetailPage()} /> */}
+                
                 <div className = "w sk_container">
                     <h2>New Arrivals</h2>
                     <ul className="clearfix">
@@ -237,7 +230,6 @@ function Homepage(props) {
                 <Footer />
             </React.Fragment>
         )
-        //}
 }
 
 // 3. Login Page
@@ -263,7 +255,30 @@ class Login extends React.Component {
 
     render() {
         return (
-            // display &&
+            <React.Fragment>
+            <section className="shortcut">
+                    <div className="w">
+                        <div className="fl">
+                            <ul>
+                                <li>Welcome to Bookworm! &nbsp;</li>
+                                <li><a href="/#/login">Please log in | &nbsp;</a></li>
+                                <li><a href="/#/signup">Sign up for free</a></li>
+                            </ul>
+                        </div>
+                        <div className="fr">
+                            <ul>
+                                <li><a href="/#/homepage">Homepage</a></li>
+                                <li></li>
+                                <li><a href="/#/order">My Orders</a></li>
+                                <li></li>
+                                <li><a href="/#/addbook">Sell a book</a></li>
+                                <li></li>
+                                <li><a href="">Contact us</a></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
             <div className="w">
                 <header>
                     <div className="logo">
@@ -296,6 +311,7 @@ class Login extends React.Component {
                 </div>
 
             </div>
+            </React.Fragment>
         );
     }
 }
@@ -329,7 +345,30 @@ class Signup extends React.Component {
 
     render() {
         return (
-            // display &&
+            <React.Fragment>
+            <section className="shortcut">
+                    <div className="w">
+                        <div className="fl">
+                            <ul>
+                                <li>Welcome to Bookworm! &nbsp;</li>
+                                <li><a href="/#/login">Please log in | &nbsp;</a></li>
+                                <li><a href="/#/signup">Sign up for free</a></li>
+                            </ul>
+                        </div>
+                        <div className="fr">
+                            <ul>
+                                <li><a href="/#/homepage">Homepage</a></li>
+                                <li></li>
+                                <li><a href="/#/order">My Orders</a></li>
+                                <li></li>
+                                <li><a href="/#/addbook">Sell a book</a></li>
+                                <li></li>
+                                <li><a href="">Contact us</a></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
             <div className="w">
                 <header>
                     <div className="logo">
@@ -380,35 +419,43 @@ class Signup extends React.Component {
                 </div>
 
             </div>
+            </React.Fragment>
         );
     }
 }
 
 
 // 5. Book Detail Page
+class OrderAdd extends React.Component{
+    constructor(){
+        super();
+        this.handleBuy = this.handleBuy.bind(this)
+    }
 
-// class OrderAdd extends React.Component {
-//     constructor(){
-//         super();
-//         this.handleSubmit = this.handleSubmit.bind(this)
-//     }
+    handleBuy(e) {
+        e.preventDefault();
+        const order = {
+        // bookid:6,
+        booktitle: this.props.book.title, 
+        buyerid:6,
+        }
+        this.props.createOrder(order);
+    }
 
-//     handelSubmit(e){}
-
-//     render(){
-//         <button>Buy Now</button>
-//     }
-
-// }
-
-
+    render(){
+        return(
+            <button onClick={this.handleBuy}>Buy Now</button>
+        )
+    }
+}
 
 function Detailpage(props){
         const book = props.book;
         const booklink = `/detail/${book.title}`;
 
         return (
-        <ReactRouterDOM.Route path={booklink}>
+        //<React.Fragment>
+         <ReactRouterDOM.Route path={booklink}>
             <Header />
             <div className="de_container w">
 
@@ -477,26 +524,30 @@ function Detailpage(props){
 
                                 </dd>
                             </dl>
-                            <button>Buy Now</button>
+                            < OrderAdd book={book} createOrder={props.createOrder}/>
+                            {/* <button>Buy Now</button> */}
                         </div>
                     </div>
                 </div>
             </div>
             <Footer />
             </ReactRouterDOM.Route>
+            // </React.Fragment>
         );
     }
 
 
+
 function Detailpages(props) {
-        const books = props.books.map(book =><Detailpage book={book}/>)
-        console.log(books)
+        const books = props.books.map(book =><Detailpage key={book.id} book={book} createOrder = {props.createOrder}/>)
+        console.log("Hello",books)
         return (
             <ReactRouterDOM.Switch>
                 {books}
             </ReactRouterDOM.Switch>
         )
 }
+
 
 // 6. AddBook Page
 class AddBookPage extends React.Component {
@@ -515,14 +566,11 @@ class AddBookPage extends React.Component {
           price: form.bk_price.value,
           category:form.bk_category.value,
           course:form.bk_course.value,
-          description:"form.bk_des.value",
-        //   description:form.description.value,
+          description:form.bk_des.value,
           photo: form.bk_photo.value,
-        //   due: new Date(new Date().getTime() + 1000*60*60*24*10),
         }
         this.props.createBook(book);
-        // alert("Add successfully!")
-        // form.bk_title.value="";form.bk_author.value="";form.bk_price.value=0;form.bk_category.value="",form.bk_course.value="",form.description.value="",form.bk_photo.value="";
+        form.bk_title.value="";form.bk_author.value="";form.bk_price.value=0;form.bk_category.value="",form.bk_course.value="",form.bk_des.value="",form.bk_photo.value="";
     }
 
     handlerChange(){
@@ -555,9 +603,11 @@ class AddBookPage extends React.Component {
                     <p>Price: <input type="text" id="bk_price" /></p>
                     <p>Category: <input type="text" id="bk_category" /></p>
                     <p>Course: <input type="text" id="bk_course" /></p>
+                    
                     <div className="description">
                         <p>Description: </p>
-                        <div className="bk_des" ref="bk_des" contentEditable="true"></div>
+                        <textarea type="text" id="bk_des"></textarea>
+                        {/* <div className="bk_des" ref="bk_des" contentEditable="true"></div> */}
                     </div >
                     <div className="photo">
                         <p>Post Photo:</p>
@@ -579,31 +629,43 @@ class AddBookPage extends React.Component {
 
 // 7. My order page
 function OrderRow(props) {
-    return (
+    const order = props.order;
+    if (order.status == "Delivered")
+        return (
         <tr>
-            <td>0</td>
-            <td>Intro to Computer Science</td>
-            <td>01-01-2022</td>
-            <td>Delivered</td>
+            <td>{order.id}</td>
+            <td>{order.booktitle}</td>
+            <td>{order.created ? order.created.toDateString() : ''}</td>
+            <td>{order.status}</td>
             <td><button onClick={()=>{window.location.href="/#/review"}}>Add a review</button></td>
         </tr>
-    );
-    // const order = props.order;
-    // return (
-    //   <tr>
-    //     <td>{order.id}</td>
-    //     <td>{order.book}</td>
-    //     <td>{order.date ? order.date.toDateString() : ''}</td>
-    //     <td>{order.status}</td>
-    //     <td>{order.review}</td>
-    //   </tr>
-    // );
+        )
+    else if (order.status == "Rated")
+        return (
+        <tr>
+            <td>{order.id}</td>
+            <td>{order.booktitle}</td>
+            <td>{order.created ? order.created.toDateString() : ''}</td>
+            <td>{order.status}</td>
+            <td>Submitted</td>
+        </tr>
+        )
+    else
+        return (
+        <tr>
+            <td>{order.id}</td>
+            <td>{order.booktitle}</td>
+            <td>{order.created ? order.created.toDateString() : ''}</td>
+            <td>{order.status}</td>
+            <td>Unable to add review</td>
+        </tr>
+        );
 }
 
 function OrderTable(props) {
-    // const orderRows = props.orders.map(order =>
-    //   <OrderRow key={order.id} order={order} />
-    // );
+    const orderRows = props.orders.map(order =>
+      <OrderRow key={order.id} order={order} />
+    );
 
     return (
         <div className="od_table_container">
@@ -612,34 +674,30 @@ function OrderTable(props) {
                     <tr>
                         <th>ID</th>
                         <th>Book</th>
-                        <th>Date</th>
+                        <th>Created Date</th>
                         <th>Status</th>
                         <th>Review</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <OrderRow />
-                    {/* {orderRows} */}
+                    {orderRows}
                 </tbody>
             </table>
         </div>
     );
 }
-class OrderPage extends React.Component {
-    render() {
-        // const display = this.props.display;
+function OrderPage(props) {
+    const orders = props.orders
         return (
-            // display &&
             <React.Fragment>
                 <Header />
                 <div className="od_container w">
                     <h1> My Orders</h1>
-                    <OrderTable />
+                    <OrderTable orders={orders}/>
                 </div>
                 <Footer />
             </React.Fragment>
         )
-    }
 }
 
 // 8. Review Page
@@ -698,7 +756,13 @@ class Review extends React.Component {
                 <form name="reviewToAdd" onSubmit={this.handleAdd}>
                     <p>Rate </p>
                     <StarRating />
-                    <p>Comment </p>
+                    
+                    <div className="comment">
+                        <p>Comment: </p>
+                        <textarea type="text" id="cm"></textarea>
+                        {/* <div className="bk_des" ref="bk_des" contentEditable="true"></div> */}
+                    </div >
+
                     <div onFocus={this.handleFocus} onBlur={this.handleBlur} className="comment" ref="comment_in" contentEditable="true"></div>
                     <div className="photo">
                         <p>Picture/Video(Optional)</p>
@@ -762,16 +826,19 @@ class Index extends React.Component {
             books: [],
             users: [],
             currentUser: {},
+            orders: [],
         };
         this.createBook = this.createBook.bind(this);
         this.createUser = this.createUser.bind(this);
         this.checkUser = this.checkUser.bind(this);
+        this.createOrder = this.createOrder.bind(this);
     
     }
 
     componentDidMount() {
         this.loadBookData();
         this.loadUserData();
+        this.loadOrderData();
     }
 
     async loadUserData() {
@@ -844,22 +911,48 @@ class Index extends React.Component {
         const data = await graphQLFetch(query, { book });
         if (data) {
           this.loadBookData();
+          alert("Add successfully!")
         }
+        
     }
+
+    async loadOrderData() {
+        const query = `query {
+          orderList {
+            id booktitle buyerid status created
+          }
+        }`;
+    
+        const data = await graphQLFetch(query);
+        if (data) {
+          this.setState({ orders: data.orderList });
+        }
+      }
+    
+      async createOrder(order) {
+        const query = `mutation orderAdd($order: OrderInputs!) {
+          orderAdd(order: $order) {
+            _id
+          }
+        }`;
+    
+        const data = await graphQLFetch(query, { order });
+        if (data) {
+          this.loadOrderData();
+          alert("Purchase successfully!")
+        }
+      }
 
     render() {
         return (
             <React.Fragment>
-                {/* <Homepage display={this.state.diaplayStatus.homePage} showDetailPage={() => this.showDetailPage()} showLoginPage={() => this.showLoginPage()} />
-                <Detailpage display={this.state.diaplayStatus.detailPage} showHomePage={() => this.showHomePage()} />
-                <Login display={this.state.diaplayStatus.LoginPage} showHomePage={() => this.showHomePage()} /> */}
                 <ReactRouterDOM.Switch>
                     <ReactRouterDOM.Redirect exact from="/" to="/homepage" />
                     <ReactRouterDOM.Route path="/homepage">
                         <Homepage books={this.state.books} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/detail">
-                        <Detailpages books={this.state.books}/>
+                        <Detailpages books={this.state.books} createOrder={this.createOrder}/>
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/signup">
                         <Signup createUser={this.createUser} />
@@ -868,7 +961,7 @@ class Index extends React.Component {
                         <Login checkUser={this.checkUser}/>
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/order">
-                        <OrderPage />
+                        <OrderPage orders = {this.state.orders}/>
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/review">
                         <ReviewPage />
