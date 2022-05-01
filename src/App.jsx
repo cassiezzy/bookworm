@@ -1029,7 +1029,8 @@ class Index extends React.Component {
         }`;
         const data = await graphQLFetch(query, { user });
         if (data.userAdd == "Done") {
-            alert("Your registration is successful!");
+            window.location.href = "/#/login";
+            alert("Your registration is successful! Please log in!");
         }
         else if (data.userAdd == "duplicated") {
             alert("The email address has been used, please choose another email")
@@ -1045,8 +1046,8 @@ class Index extends React.Component {
             alert("Password doesn't match!");
         }
         else {
-            window.location.href = "http://localhost:3000/#/homepage";
             alert(`You are successfully logged in`)
+            window.location.href = "/#/homepage";
             this.setState({ curUserid: data.userCheck });
             this.loadOrderData();
             console.log(this.state.curUserid)

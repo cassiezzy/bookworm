@@ -1468,7 +1468,8 @@ var Index = /*#__PURE__*/function (_React$Component14) {
                 data = _context6.sent;
 
                 if (data.userAdd == "Done") {
-                  alert("Your registration is successful!");
+                  window.location.href = "/#/login";
+                  alert("Your registration is successful! Please log in!");
                 } else if (data.userAdd == "duplicated") {
                   alert("The email address has been used, please choose another email");
                 }
@@ -1508,8 +1509,8 @@ var Index = /*#__PURE__*/function (_React$Component14) {
                 if (data.userCheck == "notmatch") {
                   alert("Password doesn't match!");
                 } else {
-                  window.location.href = "http://localhost:3000/#/homepage";
                   alert("You are successfully logged in");
+                  window.location.href = "/#/homepage";
                   this.setState({
                     curUserid: data.userCheck
                   });
