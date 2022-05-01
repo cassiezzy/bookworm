@@ -44,6 +44,8 @@ const resolvers = {
     bookAdd,
     orderAdd,
     reviewAdd,
+    orderUpdate,
+    orderReview,
   },
   GraphQLDate,
 };
@@ -124,7 +126,6 @@ async function bookAdd(_, { book }) {
   // bookValidate(book);
   // book.created = new Date();
   book.id = await getNextSequence('books');
-  // book.ownerid = 1;
 
   const result = await db.collection('books').insertOne(book);
   const savedBook = await db.collection('books')
@@ -133,8 +134,12 @@ async function bookAdd(_, { book }) {
 }
 
 
-async function orderList() {
-  const orders = await db.collection('orders').find({}).toArray();
+async function orderList(_, { buyerid }) {
+  // const db = getDb();
+  const filter = {};
+  if (buyerid) filter.buyerid = buyerid;
+
+  const orders = await db.collection('orders').find(filter).toArray();
   return orders;
 }
 
@@ -147,6 +152,37 @@ async function orderAdd(_, { order }) {
   const savedOrder = await db.collection('orders')
     .findOne({ _id: result.insertedId });
   return savedOrder;
+}
+
+async function orderUpdate(_, { order }) {
+
+  const result = await db.collection('orders').updateOne(
+    { id: order.id },
+    {
+      $set: {
+        status: "Delivered",
+      }
+    }
+  );
+  const updatedOrder = await db.collection('orders')
+    .findOne({ id: order.id });
+  return updatedOrder;
+}
+
+
+async function orderReview(_, { orderid }) {
+
+  const result = await db.collection('orders').updateOne(
+    { id: orderid },
+    {
+      $set: {
+        status: "Rated",
+      }
+    }
+  );
+  const updatedOrder = await db.collection('orders')
+    .findOne({ id: orderid });
+  return updatedOrder;
 }
 
 async function reviewAdd(_, { review }) {

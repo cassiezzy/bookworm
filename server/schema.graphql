@@ -34,7 +34,8 @@ type Order {
   _id: ID!
   id: Int!
   booktitle: String!
-  buyerid: Int! 
+  buyerid: String 
+  sellerid: String
   status: StatusType!
   created: GraphQLDate!
 }
@@ -43,9 +44,11 @@ type Review {
   _id: ID!
   id: Int!
   orderid : Int!
+  buyerid: String
   rate: Int!
   comments: String! 
   created: GraphQLDate!
+  photo: String
 }
 
 "Inputs"
@@ -77,15 +80,21 @@ input BookInputs {
 input ReviewInputs {
   rating: Int!
   content: String!
-  buyerid: Int!
-  orderid: Int!
+  buyerid: String
+  orderid: Int
   photo: String
 }
 
 input OrderInputs {
   status: StatusType = Paid
   booktitle: String!
-  buyerid: Int!
+  buyerid: String
+  sellerid: String
+}
+
+input UpdateOrderInputs {
+  id: Int
+  status: StatusType = Delivered
 }
 
 ##### Top level declarations
@@ -94,7 +103,7 @@ type Query {
   bookList: [Book!]!
   userList: [User!]!
   usernum: Int!
-  orderList: [Order!]!
+  orderList(buyerid:String): [Order!]!
   
 }
 
@@ -105,4 +114,6 @@ type Mutation {
   bookAdd(book: BookInputs!): Book!
   orderAdd(order: OrderInputs!):Order!
   reviewAdd(review: ReviewInputs!): String!
+  orderUpdate(order: UpdateOrderInputs!):Order
+  orderReview(orderid:Int):Order
 }

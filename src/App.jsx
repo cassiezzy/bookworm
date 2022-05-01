@@ -1,4 +1,3 @@
-// import { useSearchParams } from 'react-router-dom';
 const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
 
 function jsonDateReviver(key, value) {
@@ -216,8 +215,7 @@ function HP_book(props) {
 
 function Homepage(props) {
     const books = props.books.map(book => <HP_book book={book} />)
-    // console.log("books")
-    // console.log(books)
+
     return (
         <React.Fragment>
             <Header />
@@ -250,7 +248,7 @@ class Login extends React.Component {
             email: form.email.value,
             password: form.password.value,
         }
-        // console.log(user)
+
         this.props.checkUser(user);
         form.email.value = ""; form.password.value = "";
     }
@@ -291,7 +289,7 @@ class Login extends React.Component {
                     <div className="loginarea">
                         <h3>
                             Sign in
-                            <div className="login">Already have an account?<a href=""> Sign in</a></div>
+                            <div className="login">New to Bookworm?<a href="/#/signup"> Sign up</a></div>
                         </h3>
                         <div className="reg-form">
                             <form name="login" onSubmit={this.handleSubmit}>
@@ -334,8 +332,6 @@ class Signup extends React.Component {
             phone: form.phone.value, password: form.password.value,
             purchase: 0, sell: 0,
         };
-        // const agree = form.agree.value;
-        // console.log(form.agree.checked)
         if (form.agree.checked === true) {
             this.props.createUser(user);
         } else {
@@ -381,7 +377,7 @@ class Signup extends React.Component {
                     <div className="registerarea">
                         <h3>
                             New User Register
-                            <div className="login">Already have an account?<a href=""> Sign in</a></div>
+                            <div className="login">Already have an account?<a href="/#/login"> Sign in</a></div>
                         </h3>
                         <div className="reg-form">
                             <form name="register" onSubmit={this.handleSubmit}>
@@ -396,10 +392,6 @@ class Signup extends React.Component {
                                         <span className="success"><i className="success_icon"></i>
                                             Email format is correct</span>
                                     </li>
-                                    {/* <li><label for="">OTP: </label> <input type="text" className="inp" />
-                                    <span className="success"><i className="success_icon"></i>
-                                        OTP is correct</span>
-                                </li> */}
                                     <li><label for="">Password: </label> <input type="password" name="password" className="inp" />
                                         <span className="error"><i className="error_icon"></i>
                                             Password format is not correct</span>
@@ -440,7 +432,9 @@ class OrderAdd extends React.Component {
         const order = {
             // bookid:6,
             booktitle: this.props.book.title,
-            buyerid: 6,
+            // buyerid: 6,
+            buyerid: this.props.curUserid,
+            sellerid: this.props.book.ownerid,
         }
         this.props.createOrder(order);
     }
@@ -497,7 +491,6 @@ class Detailpage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {/* <ReactRouterDOM.Route path={booklink}> */}
                 <Header />
                 <div className="de_container w">
 
@@ -535,11 +528,9 @@ class Detailpage extends React.Component {
 
                         <div className="itemInfo_wrap fr">
                             <div className="sku_name">
-                                {/* A balanced introduction to Computer Science */}
                                 {this.state.book.title}
                             </div>
                             <div className='sku_author'>
-                                {/* By Reed, David */}
                                 By {this.state.book.author}
                             </div>
                             <div className="summary">
@@ -553,9 +544,6 @@ class Detailpage extends React.Component {
                                 <dl className="summary_introduction">
                                     <dt>Preview</dt>
                                     <dd>
-                                        {/* A Balanced Introduction to Computer Science, This book is ideal for Introduction to Computing and the Web courses in departments of Math and Computer Science.
-                    This thoughtfully written text uses the Internet as a central theme, studying its history, technology, and current use. Experimental problems use Web-based tools, enabling students to learn programming fundamentals by developing their own interactive Web pages with HTML and JavaScript. Integrating breadth-based and depth-based chapters,
-                    Reed covers a broad range of topics balanced with programming depth in a hands-on, tutorial style. */}
                                         {this.state.book.description}
                                     </dd>
                                 </dl>
@@ -566,20 +554,17 @@ class Detailpage extends React.Component {
 
                                     </dd>
                                 </dl>
-                                < OrderAdd book={this.state.book} createOrder={this.props.createOrder} />
-                                {/* <button>Buy Now</button> */}
+                                < OrderAdd book={this.state.book} createOrder={this.props.createOrder} curUserid={this.props.curUserid} />
+                                
                             </div>
                         </div>
                     </div>
                 </div>
                 <Footer />
-                {/* </ReactRouterDOM.Route> */}
-            // </React.Fragment>
+             </React.Fragment>
         );
     }
 }
-
-
 
 
 // 6. AddBook Page
@@ -589,128 +574,169 @@ class AddBookPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            img:"/images/upload.png",
-            ownerid:'',
+            img: "/images/upload.png",
+            ownerid: '',
         }
     }
+
     async componentDidMount() {
         await this.setState({
             ownerid: this.props.curUserid,
         }, () => { console.log("hello") })
-        // console.log(this.state.ownerid)
-        // console.log(this.props.curUserid)
+
     }
+
     handleSubmit(e) {
         e.preventDefault();
         const form = document.forms.bookAdd;
         const book = {
-          title: form.bk_title.value, 
-          author: form.bk_author.value,
-          price: form.bk_price.value,
-          category:form.bk_category.value,
-          course:form.bk_course.value,
-          description:form.bk_des.value,
-          photo: this.state.img,
-        //   ownerid:"1",
-          ownerid:this.props.curUserid
+            title: form.bk_title.value,
+            author: form.bk_author.value,
+            price: form.bk_price.value,
+            category: form.bk_category.value,
+            course: form.bk_course.value,
+            description: form.bk_des.value,
+            photo: this.state.img,
+            ownerid: this.props.curUserid
         }
-        console.log("ownerid"+book.ownerid)
         this.props.createBook(book);
-        form.bk_title.value="";form.bk_author.value="";form.bk_price.value=0;form.bk_category.value="";form.bk_course.value="";form.bk_des.value="";
+        form.bk_title.value = ""; form.bk_author.value = ""; form.bk_price.value = 0; form.bk_category.value = ""; form.bk_course.value = ""; form.bk_des.value = "";
         // this.setState({img:"/images/1.png"})// form.bk_photo.value="";
     }
-    
-    handleChange(){
+
+    handleChange() {
         const that = this
         const file = document.getElementById('file').files[0]
-        if (file.type !== 'image/jpeg' & file.type !== 'image/png'){
+        if (file.type !== 'image/jpeg' & file.type !== 'image/png') {
             alert('Please upload a png or jpeg picture')
             return
         }
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload = function(result){
-            // console.log(this.result)
+        reader.onload = function (result) {
             that.setState({
                 img: this.result
             })
         }
     }
-    
+
     render() {
-        return (
-            <React.Fragment>
-            <Header />
-            <div className="ab_container w">
-                <h1> Add a new book</h1>
-                <form name="bookAdd" onSubmit={this.handleSubmit}>
-                    <p>Title: <input type="text" id="bk_title" /></p>
-                    <p>Author: <input type="text" id="bk_author" /></p>
-                    <p>Price: <input type="text" id="bk_price" /></p>
-                    <p>Category: <input type="text" id="bk_category" /></p>
-                    <p>Course: <input type="text" id="bk_course" /></p>
-                    
-                    <div className="description">
-                        <p>Description: </p>
-                        <textarea type="text" id="bk_des"></textarea>
-                    </div >
-    
-                    <div className="photo">
-                        <p>Post Photo:</p>
-                        {/* <input type="text" id="bk_photo" /> */}
-                        <input type="file" id="file" accept="/image*" onChange={this.handleChange}/>
-                        <p></p>
-                        <img src={this.state.img} style = {{width:'200px'}} ></img>
+        if (this.state.ownerid == '') {
+            return (
+                <React.Fragment>
+                    <Header />
+                    <div className="ab_container w">
+                        <div className="logintounlock">
+                            <p> Please login first to sell a book</p>
+                            <p> <a href="/#/login">Click  here to login</a> </p>
+                        </div>
                     </div>
-                    <p></p>
-                    <button>Submit a book</button>
-                </form>
-            </div>
-            <Footer />
-            </React.Fragment>
-        )
+                    <Footer />
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <React.Fragment>
+                    <Header />
+                    <div className="ab_container w">
+                        <h1> Add a new book</h1>
+                        <form name="bookAdd" onSubmit={this.handleSubmit}>
+                            <p>Title: <input type="text" id="bk_title" /></p>
+                            <p>Author: <input type="text" id="bk_author" /></p>
+                            <p>Price: <input type="text" id="bk_price" /></p>
+                            <p>Category: <input type="text" id="bk_category" /></p>
+                            <p>Course: <input type="text" id="bk_course" /></p>
+
+                            <div className="description">
+                                <p>Description: </p>
+                                <textarea type="text" id="bk_des"></textarea>
+                            </div >
+
+                            <div className="photo">
+                                <p>Post Photo:</p>
+                                <input type="file" id="file" accept="/image*" onChange={this.handleChange} />
+                                <p></p>
+                                <img src={this.state.img} style={{ width: '200px' }} ></img>
+                            </div>
+                            <p></p>
+                            <button>Submit a book</button>
+                        </form>
+                    </div>
+                    <Footer />
+                </React.Fragment>
+            )
+        }
+
     }
-    }
+}
 
 
 // 7. My order page
-function OrderRow(props) {
-    const order = props.order;
-    if (order.status == "Delivered")
-        return (
-            <tr>
-                <td>{order.id}</td>
-                <td>{order.booktitle}</td>
-                <td>{order.created ? order.created.toDateString() : ''}</td>
-                <td>{order.status}</td>
-                <td><button onClick={() => { window.location.href = "/#/review" }}>Add a review</button></td>
-            </tr>
-        )
-    else if (order.status == "Rated")
-        return (
-            <tr>
-                <td>{order.id}</td>
-                <td>{order.booktitle}</td>
-                <td>{order.created ? order.created.toDateString() : ''}</td>
-                <td>{order.status}</td>
-                <td>Submitted</td>
-            </tr>
-        )
-    else
-        return (
-            <tr>
-                <td>{order.id}</td>
-                <td>{order.booktitle}</td>
-                <td>{order.created ? order.created.toDateString() : ''}</td>
-                <td>{order.status}</td>
-                <td>Unable to add review</td>
-            </tr>
-        );
+class OrderRow extends React.Component {
+
+    constructor() {
+        super();
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleReview = this.handleReview.bind(this);
+    }
+
+    handleUpdate(e) {
+        e.preventDefault();
+        let updatedorder = {}
+        updatedorder.id = this.props.order.id;
+        updatedorder.status = "Delivered"
+        this.props.confirmDelivered(updatedorder);
+
+    }
+
+    handleReview(e) {
+        e.preventDefault();
+        console.log("in order row handle review")
+        console.log(this.props.order)
+        this.props.getCurOrder(this.props.order);
+        window.location.href = "/#/review"
+    }
+
+    render() {
+        const order = this.props.order;
+        if (order.status == "Delivered")
+            return (
+                <tr>
+                    <td>{order.id}</td>
+                    <td>{order.booktitle}</td>
+                    <td>{order.created ? order.created.toDateString() : ''}</td>
+                    <td>{order.status}</td>
+                    <td><button onClick={this.handleReview}>Add a review</button></td>
+                </tr>
+            )
+        else if (order.status == "Rated")
+            return (
+                <tr>
+                    <td>{order.id}</td>
+                    <td>{order.booktitle}</td>
+                    <td>{order.created ? order.created.toDateString() : ''}</td>
+                    <td>{order.status}</td>
+                    <td>Submitted</td>
+                </tr>
+            )
+        else
+            return (
+                <tr>
+                    <td>{order.id}</td>
+                    <td>{order.booktitle}</td>
+                    <td>{order.created ? order.created.toDateString() : ''}</td>
+                    <td>{order.status}</td>
+                    <td><button onClick={this.handleUpdate}>Confirm Delivery</button></td>
+
+                </tr>
+            );
+    }
+
 }
 
 function OrderTable(props) {
     const orderRows = props.orders.map(order =>
-        <OrderRow key={order.id} order={order} />
+        <OrderRow key={order.id} order={order} confirmDelivered={props.confirmDelivered} getCurOrder={props.getCurOrder} />
     );
 
     return (
@@ -732,18 +758,40 @@ function OrderTable(props) {
         </div>
     );
 }
-function OrderPage(props) {
-    const orders = props.orders
-    return (
-        <React.Fragment>
-            <Header />
-            <div className="od_container w">
-                <h1> My Orders</h1>
-                <OrderTable orders={orders} />
-            </div>
-            <Footer />
-        </React.Fragment>
-    )
+
+class OrderPage extends React.Component {
+    render() {
+        // const buyerid = this.props.curUserid
+        // console.log(this.state.buyerid)
+        // if (buyerid == '') {
+        if (this.props.curUserid == '') {
+            return (
+                <React.Fragment>
+                    <Header />
+                    <div className="ab_container w">
+                        <div className="logintounlock">
+                            <p> Please login first to check your orders</p>
+                            <p> <a href="/#/login">Click here to login</a> </p>
+                        </div>
+                    </div>
+                    <Footer />
+                </React.Fragment>
+            )
+        } else {
+            const orders = this.props.orders
+            return (
+                <React.Fragment>
+                    <Header />
+                    <div className="od_container w">
+                        <h1> My Orders</h1>
+                        <OrderTable orders={orders} confirmDelivered={this.props.confirmDelivered} getCurOrder={this.props.getCurOrder} />
+                    </div>
+                    <Footer />
+                </React.Fragment>
+            )
+        }
+
+    }
 }
 
 // 8. Review Page
@@ -771,7 +819,6 @@ function StarRating(props) {
             val = event.target.getAttribute("star-id");
         setSelection(val);
     };
-    // console.log(rating)
     const handleClick = event => {
         setRating(event.target.getAttribute("star-id") || rating);
         props.getRating(rating);
@@ -798,48 +845,49 @@ function StarRating(props) {
 
 
 class Review extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             rating: 0,
-            img:"/images/upload.png",
+            img: "/images/upload.png",
+            // curOrder: this.props.curOrder
         };
+        // console.log("in review curorder")
+        // console.log(this.props.curOrder)
         this.getRating = this.getRating.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     getRating(rating) {
-        // console.log("hi")
-        // console.log(rating)
+
         this.setState({ rating: rating });
     }
 
-    handleAdd(e) {
+    async handleAdd(e) {
         e.preventDefault();
         const form = document.forms.reviewToAdd;
         const review = {
-            rating: this.state.rating, 
+            rating: this.state.rating,
             content: form.content.value,
             photo: this.state.img
         }
-        review.buyerid = 1
-        review.orderid = 1
-        this.props.createReview(review);
+        review.buyerid = this.props.curOrder.buyerid
+        review.orderid = this.props.curOrder.id
+        await this.props.createReview(review);
         form.content.value = "";
     }
 
-    handleChange(){
+    handleChange() {
         const that = this
         const file = document.getElementById('file').files[0]
-        if (file.type !== 'image/jpeg' & file.type !== 'image/png'){
+        if (file.type !== 'image/jpeg' & file.type !== 'image/png') {
             alert('Please upload a png or jpeg picture')
             return
         }
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload = function(result){
-            // console.log(this.result)
+        reader.onload = function (result) {
             that.setState({
                 img: this.result
             })
@@ -847,42 +895,59 @@ class Review extends React.Component {
     }
 
     render() {
-        return (
-            <div className="r_container w">
-                <h1> Write a Review</h1>
-                <form name="reviewToAdd" onSubmit={this.handleAdd}>
-                    <p>Rate </p>
-                    <StarRating getRating={this.getRating} />
-
-                    <div className="comment">
-                        <p>Comment: </p>
-                        <textarea name="content" type="text" id="cm"></textarea>
-                    </div >
-
-                    <div onFocus={this.handleFocus} onBlur={this.handleBlur} className="comment" ref="comment_in" contentEditable="true"></div>
-                    <div className="photo">
-                        <p>Picture/Video</p>
-                        <input type="file" id="file" accept="/image*" onChange={this.handleChange} />
-                        <p></p>
-                        <img src={this.state.img} style = {{width:'200px'}} ></img>
+        if (Object.keys(this.props.curOrder).length == 0) {
+            return (
+                <React.Fragment>
+                    <div className="ab_container w">
+                        <div className="logintounlock">
+                            <p> Please choose an order from "my orders" page to write a review</p>
+                            <p> <a href="/#/order">Click  here to my order page</a> </p>
+                        </div>
                     </div>
-                    <p></p>
-                    <button>Submit Review</button>
-                </form>
-            </div>
+                </React.Fragment>
+            )
+        } else {
 
-        )
+            return (
+                <div className="r_container w">
+                    <h1> Write a Review</h1>
+                    <form name="reviewToAdd" onSubmit={this.handleAdd}>
+                        <p>Order ID {this.props.curOrder.id}</p>
+                        <p>Rate </p>
+                        <StarRating getRating={this.getRating} />
+
+                        <div className="comment">
+                            <p>Comment: </p>
+                            <textarea name="content" type="text" id="cm"></textarea>
+                        </div >
+
+                        <div onFocus={this.handleFocus} onBlur={this.handleBlur} className="comment" ref="comment_in" contentEditable="true"></div>
+                        <div className="photo">
+                            <p>Picture/Video</p>
+                            <input type="file" id="file" accept="/image*" onChange={this.handleChange} />
+                            <p></p>
+                            <img src={this.state.img} style={{ width: '200px' }} ></img>
+                        </div>
+                        <p></p>
+                        <button>Submit Review</button>
+                    </form>
+                </div>
+
+            )
+        }
     }
 }
 
 class ReviewPage extends React.Component {
     render() {
         const createReview = this.props.createReview;
+        console.log("in review page curorder")
+        console.log(this.props.curOrder)
         // this.createReview = this.createReview.bind(this);
         return (
             <React.Fragment>
                 <Header />
-                <Review createReview={createReview} />
+                <Review createReview={createReview} curOrder={this.props.curOrder} />
                 <Footer />
             </React.Fragment>
         )
@@ -926,19 +991,23 @@ class Index extends React.Component {
             currentUser: {},
             orders: [],
             curUserid: '',
+            curOrder: {},
         };
         this.createBook = this.createBook.bind(this);
         this.createUser = this.createUser.bind(this);
         this.checkUser = this.checkUser.bind(this);
         this.createOrder = this.createOrder.bind(this);
         this.createReview = this.createReview.bind(this);
+        this.confirmDelivered = this.confirmDelivered.bind(this);
+        this.getCurOrder = this.getCurOrder.bind(this)
+        this.confirmReview = this.confirmReview.bind(this)
 
     }
 
     componentDidMount() {
         this.loadBookData();
         this.loadUserData();
-        this.loadOrderData();
+        // this.loadOrderData();
     }
 
     async loadUserData() {
@@ -949,10 +1018,8 @@ class Index extends React.Component {
         }`;
 
         const data = await graphQLFetch(query);
-        // console.log(data.userList)
         if (data) {
             this.setState({ users: data.userList });
-            // console.log(data.userList)
         }
     }
 
@@ -961,8 +1028,6 @@ class Index extends React.Component {
           userAdd(user: $user)
         }`;
         const data = await graphQLFetch(query, { user });
-        // this.loadData();
-        // console.log(data);
         if (data.userAdd == "Done") {
             alert("Your registration is successful!");
         }
@@ -976,17 +1041,14 @@ class Index extends React.Component {
             userCheck(user: $user)
         }`;
         const data = await graphQLFetch(query, { user });
-        // this.loadData();
-        // console.log(data);
         if (data.userCheck == "notmatch") {
             alert("Password doesn't match!");
         }
         else {
-            // window.location.href = "http://localhost:3000/#/homepage";
+            window.location.href = "http://localhost:3000/#/homepage";
             alert(`You are successfully logged in`)
-            // console.log("id")
-            // console.log(data.userCheck)
             this.setState({ curUserid: data.userCheck });
+            this.loadOrderData();
             console.log(this.state.curUserid)
         }
     }
@@ -1007,6 +1069,9 @@ class Index extends React.Component {
     }
 
     async createBook(book) {
+        console.log("in create book")
+        console.log(book)
+        console.log(typeof book.ownerid)
         const query = `mutation bookAdd($book: BookInputs!) {
           bookAdd(book: $book) {
             _id
@@ -1016,19 +1081,22 @@ class Index extends React.Component {
         const data = await graphQLFetch(query, { book });
         if (data) {
             this.loadBookData();
+            this.loadOrderData();
             alert("Add successfully!")
         }
 
     }
-
+    
     async loadOrderData() {
-        const query = `query {
-          orderList {
+        const buyerid = this.state.curUserid
+        const vars = {};
+        vars.buyerid = buyerid;
+        const query = `query orderList($buyerid:String){
+          orderList(buyerid:$buyerid) {
             id booktitle buyerid status created
           }
         }`;
-
-        const data = await graphQLFetch(query);
+        const data = await graphQLFetch(query,vars);
         if (data) {
             this.setState({ orders: data.orderList });
         }
@@ -1048,6 +1116,40 @@ class Index extends React.Component {
         }
     }
 
+    async getCurOrder(order) {
+        console.log("in get curorder")
+        console.log(order)
+        await this.setState({ curOrder: order });
+    }
+    async confirmDelivered(order) {
+        const query = `mutation orderUpdate($order: UpdateOrderInputs!) {
+            orderUpdate(order: $order) {
+                id
+          }
+        }`;
+
+        const data = await graphQLFetch(query, { order });
+        if (data) {
+            this.loadOrderData();
+            alert("Your have succcessfully confirmed delivery, please proceed to make a review")
+        }
+    }
+
+    async confirmReview(orderid) {
+        const query = `mutation confirmReview($orderid: Int!) {
+            orderReview(orderid: $orderid) {
+                id
+          }
+        }`;
+
+        const data = await graphQLFetch(query, { orderid });
+        console.log(data)
+        if (data) {
+            this.loadOrderData();
+        }
+    }
+
+
     async createReview(review) {
         const query = `mutation reviewAdd($review: ReviewInputs!) {
           reviewAdd(review: $review)
@@ -1056,10 +1158,9 @@ class Index extends React.Component {
 
         if (data.reviewAdd == "Done") {
             alert("Your review is successful!");
+            window.location.href = "/#/order"
+            await this.confirmReview(review.orderid)
         }
-        // else if (data.userAdd == "duplicated") {
-        //     alert("The email address has been used, please choose another email")
-        // }
     }
 
     render() {
@@ -1071,8 +1172,7 @@ class Index extends React.Component {
                         <Homepage books={this.state.books} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/detail">
-                        {/* <Detailpages books={this.state.books} createOrder={this.createOrder} /> */}
-                        <Detailpage books={this.state.books} createOrder={this.createOrder} />
+                        <Detailpage books={this.state.books} createOrder={this.createOrder} curUserid={this.state.curUserid} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/signup">
                         <Signup createUser={this.createUser} />
@@ -1081,10 +1181,10 @@ class Index extends React.Component {
                         <Login checkUser={this.checkUser} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/order">
-                        <OrderPage orders={this.state.orders} />
+                        <OrderPage orders={this.state.orders} curUserid={this.state.curUserid} confirmDelivered={this.confirmDelivered} getCurOrder={this.getCurOrder} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/review">
-                        <ReviewPage createReview={this.createReview} />
+                        <ReviewPage createReview={this.createReview} curOrder={this.state.curOrder} />
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Route path="/addbook">
                         <AddBookPage curUserid={this.state.curUserid} createBook={this.createBook} />
@@ -1095,7 +1195,6 @@ class Index extends React.Component {
         )
     }
 }
-
 
 const element = (
     <ReactRouterDOM.HashRouter>

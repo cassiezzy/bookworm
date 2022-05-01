@@ -38,7 +38,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-// import { useSearchParams } from 'react-router-dom';
 var dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
 
 function jsonDateReviver(key, value) {
@@ -350,9 +349,7 @@ function Homepage(props) {
     return /*#__PURE__*/React.createElement(HP_book, {
       book: book
     });
-  }); // console.log("books")
-  // console.log(books)
-
+  });
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement(HP_Nav, null), /*#__PURE__*/React.createElement(HP_Main, null), /*#__PURE__*/React.createElement("div", {
     className: "w sk_container"
   }, /*#__PURE__*/React.createElement("h2", null, "New Arrivals"), /*#__PURE__*/React.createElement("ul", {
@@ -384,8 +381,7 @@ var Login = /*#__PURE__*/function (_React$Component5) {
       var user = {
         email: form.email.value,
         password: form.password.value
-      }; // console.log(user)
-
+      };
       this.props.checkUser(user);
       form.email.value = "";
       form.password.value = "";
@@ -424,9 +420,9 @@ var Login = /*#__PURE__*/function (_React$Component5) {
         className: "loginarea"
       }, /*#__PURE__*/React.createElement("h3", null, "Sign in", /*#__PURE__*/React.createElement("div", {
         className: "login"
-      }, "Already have an account?", /*#__PURE__*/React.createElement("a", {
-        href: ""
-      }, " Sign in"))), /*#__PURE__*/React.createElement("div", {
+      }, "New to Bookworm?", /*#__PURE__*/React.createElement("a", {
+        href: "/#/signup"
+      }, " Sign up"))), /*#__PURE__*/React.createElement("div", {
         className: "reg-form"
       }, /*#__PURE__*/React.createElement("form", {
         name: "login",
@@ -490,8 +486,7 @@ var Signup = /*#__PURE__*/function (_React$Component6) {
         password: form.password.value,
         purchase: 0,
         sell: 0
-      }; // const agree = form.agree.value;
-      // console.log(form.agree.checked)
+      };
 
       if (form.agree.checked === true) {
         this.props.createUser(user);
@@ -540,7 +535,7 @@ var Signup = /*#__PURE__*/function (_React$Component6) {
       }, /*#__PURE__*/React.createElement("h3", null, "New User Register", /*#__PURE__*/React.createElement("div", {
         className: "login"
       }, "Already have an account?", /*#__PURE__*/React.createElement("a", {
-        href: ""
+        href: "/#/login"
       }, " Sign in"))), /*#__PURE__*/React.createElement("div", {
         className: "reg-form"
       }, /*#__PURE__*/React.createElement("form", {
@@ -640,7 +635,9 @@ var OrderAdd = /*#__PURE__*/function (_React$Component7) {
       var order = {
         // bookid:6,
         booktitle: this.props.book.title,
-        buyerid: 6
+        // buyerid: 6,
+        buyerid: this.props.curUserid,
+        sellerid: this.props.book.ownerid
       };
       this.props.createOrder(order);
     }
@@ -819,8 +816,9 @@ var Detailpage = /*#__PURE__*/function (_React$Component8) {
         className: "summary_promotion"
       }, /*#__PURE__*/React.createElement("dt", null, "Promotion"), /*#__PURE__*/React.createElement("dd", null, /*#__PURE__*/React.createElement("em", null, "Sales!"), " Use coupon code: NEWSTART to get 10% off discount")), /*#__PURE__*/React.createElement(OrderAdd, {
         book: this.state.book,
-        createOrder: this.props.createOrder
-      }))))), /*#__PURE__*/React.createElement(Footer, null), "// ");
+        createOrder: this.props.createOrder,
+        curUserid: this.props.curUserid
+      }))))), /*#__PURE__*/React.createElement(Footer, null));
     }
   }]);
 
@@ -890,10 +888,8 @@ var AddBookPage = /*#__PURE__*/function (_React$Component9) {
         course: form.bk_course.value,
         description: form.bk_des.value,
         photo: this.state.img,
-        //   ownerid:"1",
         ownerid: this.props.curUserid
       };
-      console.log("ownerid" + book.ownerid);
       this.props.createBook(book);
       form.bk_title.value = "";
       form.bk_author.value = "";
@@ -917,7 +913,6 @@ var AddBookPage = /*#__PURE__*/function (_React$Component9) {
       reader.readAsDataURL(file);
 
       reader.onload = function (result) {
-        // console.log(this.result)
         that.setState({
           img: this.result
         });
@@ -926,44 +921,54 @@ var AddBookPage = /*#__PURE__*/function (_React$Component9) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement("div", {
-        className: "ab_container w"
-      }, /*#__PURE__*/React.createElement("h1", null, " Add a new book"), /*#__PURE__*/React.createElement("form", {
-        name: "bookAdd",
-        onSubmit: this.handleSubmit
-      }, /*#__PURE__*/React.createElement("p", null, "Title: ", /*#__PURE__*/React.createElement("input", {
-        type: "text",
-        id: "bk_title"
-      })), /*#__PURE__*/React.createElement("p", null, "Author: ", /*#__PURE__*/React.createElement("input", {
-        type: "text",
-        id: "bk_author"
-      })), /*#__PURE__*/React.createElement("p", null, "Price: ", /*#__PURE__*/React.createElement("input", {
-        type: "text",
-        id: "bk_price"
-      })), /*#__PURE__*/React.createElement("p", null, "Category: ", /*#__PURE__*/React.createElement("input", {
-        type: "text",
-        id: "bk_category"
-      })), /*#__PURE__*/React.createElement("p", null, "Course: ", /*#__PURE__*/React.createElement("input", {
-        type: "text",
-        id: "bk_course"
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "description"
-      }, /*#__PURE__*/React.createElement("p", null, "Description: "), /*#__PURE__*/React.createElement("textarea", {
-        type: "text",
-        id: "bk_des"
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "photo"
-      }, /*#__PURE__*/React.createElement("p", null, "Post Photo:"), /*#__PURE__*/React.createElement("input", {
-        type: "file",
-        id: "file",
-        accept: "/image*",
-        onChange: this.handleChange
-      }), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("img", {
-        src: this.state.img,
-        style: {
-          width: '200px'
-        }
-      })), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("button", null, "Submit a book"))), /*#__PURE__*/React.createElement(Footer, null));
+      if (this.state.ownerid == '') {
+        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement("div", {
+          className: "ab_container w"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "logintounlock"
+        }, /*#__PURE__*/React.createElement("p", null, " Please login first to sell a book"), /*#__PURE__*/React.createElement("p", null, " ", /*#__PURE__*/React.createElement("a", {
+          href: "/#/login"
+        }, "Click  here to login"), " "))), /*#__PURE__*/React.createElement(Footer, null));
+      } else {
+        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement("div", {
+          className: "ab_container w"
+        }, /*#__PURE__*/React.createElement("h1", null, " Add a new book"), /*#__PURE__*/React.createElement("form", {
+          name: "bookAdd",
+          onSubmit: this.handleSubmit
+        }, /*#__PURE__*/React.createElement("p", null, "Title: ", /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          id: "bk_title"
+        })), /*#__PURE__*/React.createElement("p", null, "Author: ", /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          id: "bk_author"
+        })), /*#__PURE__*/React.createElement("p", null, "Price: ", /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          id: "bk_price"
+        })), /*#__PURE__*/React.createElement("p", null, "Category: ", /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          id: "bk_category"
+        })), /*#__PURE__*/React.createElement("p", null, "Course: ", /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          id: "bk_course"
+        })), /*#__PURE__*/React.createElement("div", {
+          className: "description"
+        }, /*#__PURE__*/React.createElement("p", null, "Description: "), /*#__PURE__*/React.createElement("textarea", {
+          type: "text",
+          id: "bk_des"
+        })), /*#__PURE__*/React.createElement("div", {
+          className: "photo"
+        }, /*#__PURE__*/React.createElement("p", null, "Post Photo:"), /*#__PURE__*/React.createElement("input", {
+          type: "file",
+          id: "file",
+          accept: "/image*",
+          onChange: this.handleChange
+        }), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("img", {
+          src: this.state.img,
+          style: {
+            width: '200px'
+          }
+        })), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("button", null, "Submit a book"))), /*#__PURE__*/React.createElement(Footer, null));
+      }
     }
   }]);
 
@@ -971,20 +976,62 @@ var AddBookPage = /*#__PURE__*/function (_React$Component9) {
 }(React.Component); // 7. My order page
 
 
-function OrderRow(props) {
-  var order = props.order;
-  if (order.status == "Delivered") return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, order.id), /*#__PURE__*/React.createElement("td", null, order.booktitle), /*#__PURE__*/React.createElement("td", null, order.created ? order.created.toDateString() : ''), /*#__PURE__*/React.createElement("td", null, order.status), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
+var OrderRow = /*#__PURE__*/function (_React$Component10) {
+  _inherits(OrderRow, _React$Component10);
+
+  var _super10 = _createSuper(OrderRow);
+
+  function OrderRow() {
+    var _this6;
+
+    _classCallCheck(this, OrderRow);
+
+    _this6 = _super10.call(this);
+    _this6.handleUpdate = _this6.handleUpdate.bind(_assertThisInitialized(_this6));
+    _this6.handleReview = _this6.handleReview.bind(_assertThisInitialized(_this6));
+    return _this6;
+  }
+
+  _createClass(OrderRow, [{
+    key: "handleUpdate",
+    value: function handleUpdate(e) {
+      e.preventDefault();
+      var updatedorder = {};
+      updatedorder.id = this.props.order.id;
+      updatedorder.status = "Delivered";
+      this.props.confirmDelivered(updatedorder);
+    }
+  }, {
+    key: "handleReview",
+    value: function handleReview(e) {
+      e.preventDefault();
+      console.log("in order row handle review");
+      console.log(this.props.order);
+      this.props.getCurOrder(this.props.order);
       window.location.href = "/#/review";
     }
-  }, "Add a review")));else if (order.status == "Rated") return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, order.id), /*#__PURE__*/React.createElement("td", null, order.booktitle), /*#__PURE__*/React.createElement("td", null, order.created ? order.created.toDateString() : ''), /*#__PURE__*/React.createElement("td", null, order.status), /*#__PURE__*/React.createElement("td", null, "Submitted"));else return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, order.id), /*#__PURE__*/React.createElement("td", null, order.booktitle), /*#__PURE__*/React.createElement("td", null, order.created ? order.created.toDateString() : ''), /*#__PURE__*/React.createElement("td", null, order.status), /*#__PURE__*/React.createElement("td", null, "Unable to add review"));
-}
+  }, {
+    key: "render",
+    value: function render() {
+      var order = this.props.order;
+      if (order.status == "Delivered") return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, order.id), /*#__PURE__*/React.createElement("td", null, order.booktitle), /*#__PURE__*/React.createElement("td", null, order.created ? order.created.toDateString() : ''), /*#__PURE__*/React.createElement("td", null, order.status), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.handleReview
+      }, "Add a review")));else if (order.status == "Rated") return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, order.id), /*#__PURE__*/React.createElement("td", null, order.booktitle), /*#__PURE__*/React.createElement("td", null, order.created ? order.created.toDateString() : ''), /*#__PURE__*/React.createElement("td", null, order.status), /*#__PURE__*/React.createElement("td", null, "Submitted"));else return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, order.id), /*#__PURE__*/React.createElement("td", null, order.booktitle), /*#__PURE__*/React.createElement("td", null, order.created ? order.created.toDateString() : ''), /*#__PURE__*/React.createElement("td", null, order.status), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.handleUpdate
+      }, "Confirm Delivery")));
+    }
+  }]);
+
+  return OrderRow;
+}(React.Component);
 
 function OrderTable(props) {
   var orderRows = props.orders.map(function (order) {
     return /*#__PURE__*/React.createElement(OrderRow, {
       key: order.id,
-      order: order
+      order: order,
+      confirmDelivered: props.confirmDelivered,
+      getCurOrder: props.getCurOrder
     });
   });
   return /*#__PURE__*/React.createElement("div", {
@@ -994,14 +1041,46 @@ function OrderTable(props) {
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Book"), /*#__PURE__*/React.createElement("th", null, "Created Date"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Review"))), /*#__PURE__*/React.createElement("tbody", null, orderRows)));
 }
 
-function OrderPage(props) {
-  var orders = props.orders;
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement("div", {
-    className: "od_container w"
-  }, /*#__PURE__*/React.createElement("h1", null, " My Orders"), /*#__PURE__*/React.createElement(OrderTable, {
-    orders: orders
-  })), /*#__PURE__*/React.createElement(Footer, null));
-} // 8. Review Page
+var OrderPage = /*#__PURE__*/function (_React$Component11) {
+  _inherits(OrderPage, _React$Component11);
+
+  var _super11 = _createSuper(OrderPage);
+
+  function OrderPage() {
+    _classCallCheck(this, OrderPage);
+
+    return _super11.apply(this, arguments);
+  }
+
+  _createClass(OrderPage, [{
+    key: "render",
+    value: function render() {
+      // const buyerid = this.props.curUserid
+      // console.log(this.state.buyerid)
+      // if (buyerid == '') {
+      if (this.props.curUserid == '') {
+        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement("div", {
+          className: "ab_container w"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "logintounlock"
+        }, /*#__PURE__*/React.createElement("p", null, " Please login first to check your orders"), /*#__PURE__*/React.createElement("p", null, " ", /*#__PURE__*/React.createElement("a", {
+          href: "/#/login"
+        }, "Click here to login"), " "))), /*#__PURE__*/React.createElement(Footer, null));
+      } else {
+        var orders = this.props.orders;
+        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement("div", {
+          className: "od_container w"
+        }, /*#__PURE__*/React.createElement("h1", null, " My Orders"), /*#__PURE__*/React.createElement(OrderTable, {
+          orders: orders,
+          confirmDelivered: this.props.confirmDelivered,
+          getCurOrder: this.props.getCurOrder
+        })), /*#__PURE__*/React.createElement(Footer, null));
+      }
+    }
+  }]);
+
+  return OrderPage;
+}(React.Component); // 8. Review Page
 // Star Component
 
 
@@ -1035,8 +1114,7 @@ function StarRating(props) {
     var val = 0;
     if (event && event.target && event.target.getAttribute("star-id")) val = event.target.getAttribute("star-id");
     setSelection(val);
-  }; // console.log(rating)
-
+  };
 
   var handleClick = function handleClick(event) {
     setRating(event.target.getAttribute("star-id") || rating);
@@ -1062,51 +1140,75 @@ function StarRating(props) {
   }));
 }
 
-var Review = /*#__PURE__*/function (_React$Component10) {
-  _inherits(Review, _React$Component10);
+var Review = /*#__PURE__*/function (_React$Component12) {
+  _inherits(Review, _React$Component12);
 
-  var _super10 = _createSuper(Review);
+  var _super12 = _createSuper(Review);
 
-  function Review() {
-    var _this6;
+  function Review(props) {
+    var _this7;
 
     _classCallCheck(this, Review);
 
-    _this6 = _super10.call(this);
-    _this6.state = {
+    _this7 = _super12.call(this, props);
+    _this7.state = {
       rating: 0,
-      img: "/images/upload.png"
-    };
-    _this6.getRating = _this6.getRating.bind(_assertThisInitialized(_this6));
-    _this6.handleAdd = _this6.handleAdd.bind(_assertThisInitialized(_this6));
-    _this6.handleChange = _this6.handleChange.bind(_assertThisInitialized(_this6));
-    return _this6;
+      img: "/images/upload.png" // curOrder: this.props.curOrder
+
+    }; // console.log("in review curorder")
+    // console.log(this.props.curOrder)
+
+    _this7.getRating = _this7.getRating.bind(_assertThisInitialized(_this7));
+    _this7.handleAdd = _this7.handleAdd.bind(_assertThisInitialized(_this7));
+    _this7.handleChange = _this7.handleChange.bind(_assertThisInitialized(_this7));
+    return _this7;
   }
 
   _createClass(Review, [{
     key: "getRating",
     value: function getRating(rating) {
-      // console.log("hi")
-      // console.log(rating)
       this.setState({
         rating: rating
       });
     }
   }, {
     key: "handleAdd",
-    value: function handleAdd(e) {
-      e.preventDefault();
-      var form = document.forms.reviewToAdd;
-      var review = {
-        rating: this.state.rating,
-        content: form.content.value,
-        photo: this.state.img
-      };
-      review.buyerid = 1;
-      review.orderid = 1;
-      this.props.createReview(review);
-      form.content.value = "";
-    }
+    value: function () {
+      var _handleAdd = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(e) {
+        var form, review;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                e.preventDefault();
+                form = document.forms.reviewToAdd;
+                review = {
+                  rating: this.state.rating,
+                  content: form.content.value,
+                  photo: this.state.img
+                };
+                review.buyerid = this.props.curOrder.buyerid;
+                review.orderid = this.props.curOrder.id;
+                _context4.next = 7;
+                return this.props.createReview(review);
+
+              case 7:
+                form.content.value = "";
+
+              case 8:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function handleAdd(_x) {
+        return _handleAdd.apply(this, arguments);
+      }
+
+      return handleAdd;
+    }()
   }, {
     key: "handleChange",
     value: function handleChange() {
@@ -1122,7 +1224,6 @@ var Review = /*#__PURE__*/function (_React$Component10) {
       reader.readAsDataURL(file);
 
       reader.onload = function (result) {
-        // console.log(this.result)
         that.setState({
           img: this.result
         });
@@ -1131,62 +1232,75 @@ var Review = /*#__PURE__*/function (_React$Component10) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "r_container w"
-      }, /*#__PURE__*/React.createElement("h1", null, " Write a Review"), /*#__PURE__*/React.createElement("form", {
-        name: "reviewToAdd",
-        onSubmit: this.handleAdd
-      }, /*#__PURE__*/React.createElement("p", null, "Rate "), /*#__PURE__*/React.createElement(StarRating, {
-        getRating: this.getRating
-      }), /*#__PURE__*/React.createElement("div", {
-        className: "comment"
-      }, /*#__PURE__*/React.createElement("p", null, "Comment: "), /*#__PURE__*/React.createElement("textarea", {
-        name: "content",
-        type: "text",
-        id: "cm"
-      })), /*#__PURE__*/React.createElement("div", {
-        onFocus: this.handleFocus,
-        onBlur: this.handleBlur,
-        className: "comment",
-        ref: "comment_in",
-        contentEditable: "true"
-      }), /*#__PURE__*/React.createElement("div", {
-        className: "photo"
-      }, /*#__PURE__*/React.createElement("p", null, "Picture/Video"), /*#__PURE__*/React.createElement("input", {
-        type: "file",
-        id: "file",
-        accept: "/image*",
-        onChange: this.handleChange
-      }), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("img", {
-        src: this.state.img,
-        style: {
-          width: '200px'
-        }
-      })), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("button", null, "Submit Review")));
+      if (Object.keys(this.props.curOrder).length == 0) {
+        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+          className: "ab_container w"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "logintounlock"
+        }, /*#__PURE__*/React.createElement("p", null, " Please choose an order from \"my orders\" page to write a review"), /*#__PURE__*/React.createElement("p", null, " ", /*#__PURE__*/React.createElement("a", {
+          href: "/#/order"
+        }, "Click  here to my order page"), " "))));
+      } else {
+        return /*#__PURE__*/React.createElement("div", {
+          className: "r_container w"
+        }, /*#__PURE__*/React.createElement("h1", null, " Write a Review"), /*#__PURE__*/React.createElement("form", {
+          name: "reviewToAdd",
+          onSubmit: this.handleAdd
+        }, /*#__PURE__*/React.createElement("p", null, "Order ID ", this.props.curOrder.id), /*#__PURE__*/React.createElement("p", null, "Rate "), /*#__PURE__*/React.createElement(StarRating, {
+          getRating: this.getRating
+        }), /*#__PURE__*/React.createElement("div", {
+          className: "comment"
+        }, /*#__PURE__*/React.createElement("p", null, "Comment: "), /*#__PURE__*/React.createElement("textarea", {
+          name: "content",
+          type: "text",
+          id: "cm"
+        })), /*#__PURE__*/React.createElement("div", {
+          onFocus: this.handleFocus,
+          onBlur: this.handleBlur,
+          className: "comment",
+          ref: "comment_in",
+          contentEditable: "true"
+        }), /*#__PURE__*/React.createElement("div", {
+          className: "photo"
+        }, /*#__PURE__*/React.createElement("p", null, "Picture/Video"), /*#__PURE__*/React.createElement("input", {
+          type: "file",
+          id: "file",
+          accept: "/image*",
+          onChange: this.handleChange
+        }), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("img", {
+          src: this.state.img,
+          style: {
+            width: '200px'
+          }
+        })), /*#__PURE__*/React.createElement("p", null), /*#__PURE__*/React.createElement("button", null, "Submit Review")));
+      }
     }
   }]);
 
   return Review;
 }(React.Component);
 
-var ReviewPage = /*#__PURE__*/function (_React$Component11) {
-  _inherits(ReviewPage, _React$Component11);
+var ReviewPage = /*#__PURE__*/function (_React$Component13) {
+  _inherits(ReviewPage, _React$Component13);
 
-  var _super11 = _createSuper(ReviewPage);
+  var _super13 = _createSuper(ReviewPage);
 
   function ReviewPage() {
     _classCallCheck(this, ReviewPage);
 
-    return _super11.apply(this, arguments);
+    return _super13.apply(this, arguments);
   }
 
   _createClass(ReviewPage, [{
     key: "render",
     value: function render() {
-      var createReview = this.props.createReview; // this.createReview = this.createReview.bind(this);
+      var createReview = this.props.createReview;
+      console.log("in review page curorder");
+      console.log(this.props.curOrder); // this.createReview = this.createReview.bind(this);
 
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement(Review, {
-        createReview: createReview
+        createReview: createReview,
+        curOrder: this.props.curOrder
       }), /*#__PURE__*/React.createElement(Footer, null));
     }
   }]);
@@ -1194,27 +1308,27 @@ var ReviewPage = /*#__PURE__*/function (_React$Component11) {
   return ReviewPage;
 }(React.Component);
 
-function graphQLFetch(_x) {
+function graphQLFetch(_x2) {
   return _graphQLFetch.apply(this, arguments);
 } // 9. System page
 
 
 function _graphQLFetch() {
-  _graphQLFetch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(query) {
+  _graphQLFetch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(query) {
     var variables,
         response,
         body,
         result,
         error,
         details,
-        _args12 = arguments;
-    return regeneratorRuntime.wrap(function _callee12$(_context12) {
+        _args16 = arguments;
+    return regeneratorRuntime.wrap(function _callee16$(_context16) {
       while (1) {
-        switch (_context12.prev = _context12.next) {
+        switch (_context16.prev = _context16.next) {
           case 0:
-            variables = _args12.length > 1 && _args12[1] !== undefined ? _args12[1] : {};
-            _context12.prev = 1;
-            _context12.next = 4;
+            variables = _args16.length > 1 && _args16[1] !== undefined ? _args16[1] : {};
+            _context16.prev = 1;
+            _context16.next = 4;
             return fetch('/graphql', {
               method: 'POST',
               headers: {
@@ -1227,12 +1341,12 @@ function _graphQLFetch() {
             });
 
           case 4:
-            response = _context12.sent;
-            _context12.next = 7;
+            response = _context16.sent;
+            _context16.next = 7;
             return response.text();
 
           case 7:
-            body = _context12.sent;
+            body = _context16.sent;
             result = JSON.parse(body, jsonDateReviver);
 
             if (result.errors) {
@@ -1246,85 +1360,87 @@ function _graphQLFetch() {
               }
             }
 
-            return _context12.abrupt("return", result.data);
+            return _context16.abrupt("return", result.data);
 
           case 13:
-            _context12.prev = 13;
-            _context12.t0 = _context12["catch"](1);
-            alert("Error in sending data to server: ".concat(_context12.t0.message));
+            _context16.prev = 13;
+            _context16.t0 = _context16["catch"](1);
+            alert("Error in sending data to server: ".concat(_context16.t0.message));
 
           case 16:
           case "end":
-            return _context12.stop();
+            return _context16.stop();
         }
       }
-    }, _callee12, null, [[1, 13]]);
+    }, _callee16, null, [[1, 13]]);
   }));
   return _graphQLFetch.apply(this, arguments);
 }
 
-var Index = /*#__PURE__*/function (_React$Component12) {
-  _inherits(Index, _React$Component12);
+var Index = /*#__PURE__*/function (_React$Component14) {
+  _inherits(Index, _React$Component14);
 
-  var _super12 = _createSuper(Index);
+  var _super14 = _createSuper(Index);
 
   function Index() {
-    var _this7;
+    var _this8;
 
     _classCallCheck(this, Index);
 
-    _this7 = _super12.call(this);
-    _this7.state = {
+    _this8 = _super14.call(this);
+    _this8.state = {
       books: [],
       users: [],
       currentUser: {},
       orders: [],
-      curUserid: ''
+      curUserid: '',
+      curOrder: {}
     };
-    _this7.createBook = _this7.createBook.bind(_assertThisInitialized(_this7));
-    _this7.createUser = _this7.createUser.bind(_assertThisInitialized(_this7));
-    _this7.checkUser = _this7.checkUser.bind(_assertThisInitialized(_this7));
-    _this7.createOrder = _this7.createOrder.bind(_assertThisInitialized(_this7));
-    _this7.createReview = _this7.createReview.bind(_assertThisInitialized(_this7));
-    return _this7;
+    _this8.createBook = _this8.createBook.bind(_assertThisInitialized(_this8));
+    _this8.createUser = _this8.createUser.bind(_assertThisInitialized(_this8));
+    _this8.checkUser = _this8.checkUser.bind(_assertThisInitialized(_this8));
+    _this8.createOrder = _this8.createOrder.bind(_assertThisInitialized(_this8));
+    _this8.createReview = _this8.createReview.bind(_assertThisInitialized(_this8));
+    _this8.confirmDelivered = _this8.confirmDelivered.bind(_assertThisInitialized(_this8));
+    _this8.getCurOrder = _this8.getCurOrder.bind(_assertThisInitialized(_this8));
+    _this8.confirmReview = _this8.confirmReview.bind(_assertThisInitialized(_this8));
+    return _this8;
   }
 
   _createClass(Index, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.loadBookData();
-      this.loadUserData();
-      this.loadOrderData();
+      this.loadUserData(); // this.loadOrderData();
     }
   }, {
     key: "loadUserData",
     value: function () {
-      var _loadUserData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      var _loadUserData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 query = "query {\n            userList {\n                _id name email phone password purchase sell\n            }\n        }";
-                _context4.next = 3;
+                _context5.next = 3;
                 return graphQLFetch(query);
 
               case 3:
-                data = _context4.sent;
+                data = _context5.sent;
 
-                // console.log(data.userList)
                 if (data) {
                   this.setState({
                     users: data.userList
-                  }); // console.log(data.userList)
+                  });
                 }
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
       function loadUserData() {
@@ -1336,53 +1452,13 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "createUser",
     value: function () {
-      var _createUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(user) {
-        var query, data;
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                query = "mutation userAdd($user: UserInputs!) {\n          userAdd(user: $user)\n        }";
-                _context5.next = 3;
-                return graphQLFetch(query, {
-                  user: user
-                });
-
-              case 3:
-                data = _context5.sent;
-
-                // this.loadData();
-                // console.log(data);
-                if (data.userAdd == "Done") {
-                  alert("Your registration is successful!");
-                } else if (data.userAdd == "duplicated") {
-                  alert("The email address has been used, please choose another email");
-                }
-
-              case 5:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      function createUser(_x2) {
-        return _createUser.apply(this, arguments);
-      }
-
-      return createUser;
-    }()
-  }, {
-    key: "checkUser",
-    value: function () {
-      var _checkUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(user) {
+      var _createUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(user) {
         var query, data;
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                query = "mutation userCheck($user: UserCheckInputs!) {\n            userCheck(user: $user)\n        }";
+                query = "mutation userAdd($user: UserInputs!) {\n          userAdd(user: $user)\n        }";
                 _context6.next = 3;
                 return graphQLFetch(query, {
                   user: user
@@ -1391,19 +1467,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
               case 3:
                 data = _context6.sent;
 
-                // this.loadData();
-                // console.log(data);
-                if (data.userCheck == "notmatch") {
-                  alert("Password doesn't match!");
-                } else {
-                  // window.location.href = "http://localhost:3000/#/homepage";
-                  alert("You are successfully logged in"); // console.log("id")
-                  // console.log(data.userCheck)
-
-                  this.setState({
-                    curUserid: data.userCheck
-                  });
-                  console.log(this.state.curUserid);
+                if (data.userAdd == "Done") {
+                  alert("Your registration is successful!");
+                } else if (data.userAdd == "duplicated") {
+                  alert("The email address has been used, please choose another email");
                 }
 
               case 5:
@@ -1411,10 +1478,54 @@ var Index = /*#__PURE__*/function (_React$Component12) {
                 return _context6.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee6);
       }));
 
-      function checkUser(_x3) {
+      function createUser(_x3) {
+        return _createUser.apply(this, arguments);
+      }
+
+      return createUser;
+    }()
+  }, {
+    key: "checkUser",
+    value: function () {
+      var _checkUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(user) {
+        var query, data;
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                query = "mutation userCheck($user: UserCheckInputs!) {\n            userCheck(user: $user)\n        }";
+                _context7.next = 3;
+                return graphQLFetch(query, {
+                  user: user
+                });
+
+              case 3:
+                data = _context7.sent;
+
+                if (data.userCheck == "notmatch") {
+                  alert("Password doesn't match!");
+                } else {
+                  window.location.href = "http://localhost:3000/#/homepage";
+                  alert("You are successfully logged in");
+                  this.setState({
+                    curUserid: data.userCheck
+                  });
+                  this.loadOrderData();
+                  console.log(this.state.curUserid);
+                }
+
+              case 5:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function checkUser(_x4) {
         return _checkUser.apply(this, arguments);
       }
 
@@ -1423,18 +1534,18 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "loadBookData",
     value: function () {
-      var _loadBookData2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+      var _loadBookData2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 query = "query {\n          bookList {\n            id title author price description\n            category course photo ownerid\n          }\n        }";
-                _context7.next = 3;
+                _context8.next = 3;
                 return graphQLFetch(query);
 
               case 3:
-                data = _context7.sent;
+                data = _context8.sent;
 
                 if (data) {
                   this.setState({
@@ -1444,10 +1555,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
 
       function loadBookData() {
@@ -1459,35 +1570,39 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "createBook",
     value: function () {
-      var _createBook = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(book) {
+      var _createBook = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(book) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
+                console.log("in create book");
+                console.log(book);
+                console.log(_typeof(book.ownerid));
                 query = "mutation bookAdd($book: BookInputs!) {\n          bookAdd(book: $book) {\n            _id\n          }\n        }";
-                _context8.next = 3;
+                _context9.next = 6;
                 return graphQLFetch(query, {
                   book: book
                 });
 
-              case 3:
-                data = _context8.sent;
+              case 6:
+                data = _context9.sent;
 
                 if (data) {
                   this.loadBookData();
+                  this.loadOrderData();
                   alert("Add successfully!");
                 }
 
-              case 5:
+              case 8:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
 
-      function createBook(_x4) {
+      function createBook(_x5) {
         return _createBook.apply(this, arguments);
       }
 
@@ -1496,18 +1611,21 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "loadOrderData",
     value: function () {
-      var _loadOrderData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-        var query, data;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+      var _loadOrderData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+        var buyerid, vars, query, data;
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
-                query = "query {\n          orderList {\n            id booktitle buyerid status created\n          }\n        }";
-                _context9.next = 3;
-                return graphQLFetch(query);
+                buyerid = this.state.curUserid;
+                vars = {};
+                vars.buyerid = buyerid;
+                query = "query orderList($buyerid:String){\n          orderList(buyerid:$buyerid) {\n            id booktitle buyerid status created\n          }\n        }";
+                _context10.next = 6;
+                return graphQLFetch(query, vars);
 
-              case 3:
-                data = _context9.sent;
+              case 6:
+                data = _context10.sent;
 
                 if (data) {
                   this.setState({
@@ -1515,12 +1633,12 @@ var Index = /*#__PURE__*/function (_React$Component12) {
                   });
                 }
 
-              case 5:
+              case 8:
               case "end":
-                return _context9.stop();
+                return _context10.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee10, this);
       }));
 
       function loadOrderData() {
@@ -1532,20 +1650,20 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "createOrder",
     value: function () {
-      var _createOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(order) {
+      var _createOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(order) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
                 query = "mutation orderAdd($order: OrderInputs!) {\n          orderAdd(order: $order) {\n            _id\n          }\n        }";
-                _context10.next = 3;
+                _context11.next = 3;
                 return graphQLFetch(query, {
                   order: order
                 });
 
               case 3:
-                data = _context10.sent;
+                data = _context11.sent;
 
                 if (data) {
                   this.loadOrderData();
@@ -1554,52 +1672,158 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context10.stop();
+                return _context11.stop();
             }
           }
-        }, _callee10, this);
+        }, _callee11, this);
       }));
 
-      function createOrder(_x5) {
+      function createOrder(_x6) {
         return _createOrder.apply(this, arguments);
       }
 
       return createOrder;
     }()
   }, {
+    key: "getCurOrder",
+    value: function () {
+      var _getCurOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(order) {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+          while (1) {
+            switch (_context12.prev = _context12.next) {
+              case 0:
+                console.log("in get curorder");
+                console.log(order);
+                _context12.next = 4;
+                return this.setState({
+                  curOrder: order
+                });
+
+              case 4:
+              case "end":
+                return _context12.stop();
+            }
+          }
+        }, _callee12, this);
+      }));
+
+      function getCurOrder(_x7) {
+        return _getCurOrder.apply(this, arguments);
+      }
+
+      return getCurOrder;
+    }()
+  }, {
+    key: "confirmDelivered",
+    value: function () {
+      var _confirmDelivered = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(order) {
+        var query, data;
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+          while (1) {
+            switch (_context13.prev = _context13.next) {
+              case 0:
+                query = "mutation orderUpdate($order: UpdateOrderInputs!) {\n            orderUpdate(order: $order) {\n                id\n          }\n        }";
+                _context13.next = 3;
+                return graphQLFetch(query, {
+                  order: order
+                });
+
+              case 3:
+                data = _context13.sent;
+
+                if (data) {
+                  this.loadOrderData();
+                  alert("Your have succcessfully confirmed delivery, please proceed to make a review");
+                }
+
+              case 5:
+              case "end":
+                return _context13.stop();
+            }
+          }
+        }, _callee13, this);
+      }));
+
+      function confirmDelivered(_x8) {
+        return _confirmDelivered.apply(this, arguments);
+      }
+
+      return confirmDelivered;
+    }()
+  }, {
+    key: "confirmReview",
+    value: function () {
+      var _confirmReview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(orderid) {
+        var query, data;
+        return regeneratorRuntime.wrap(function _callee14$(_context14) {
+          while (1) {
+            switch (_context14.prev = _context14.next) {
+              case 0:
+                query = "mutation confirmReview($orderid: Int!) {\n            orderReview(orderid: $orderid) {\n                id\n          }\n        }";
+                _context14.next = 3;
+                return graphQLFetch(query, {
+                  orderid: orderid
+                });
+
+              case 3:
+                data = _context14.sent;
+                console.log(data);
+
+                if (data) {
+                  this.loadOrderData();
+                }
+
+              case 6:
+              case "end":
+                return _context14.stop();
+            }
+          }
+        }, _callee14, this);
+      }));
+
+      function confirmReview(_x9) {
+        return _confirmReview.apply(this, arguments);
+      }
+
+      return confirmReview;
+    }()
+  }, {
     key: "createReview",
     value: function () {
-      var _createReview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(review) {
+      var _createReview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(review) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        return regeneratorRuntime.wrap(function _callee15$(_context15) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context15.prev = _context15.next) {
               case 0:
                 query = "mutation reviewAdd($review: ReviewInputs!) {\n          reviewAdd(review: $review)\n        }";
-                _context11.next = 3;
+                _context15.next = 3;
                 return graphQLFetch(query, {
                   review: review
                 });
 
               case 3:
-                data = _context11.sent;
+                data = _context15.sent;
 
-                if (data.reviewAdd == "Done") {
-                  alert("Your review is successful!");
-                } // else if (data.userAdd == "duplicated") {
-                //     alert("The email address has been used, please choose another email")
-                // }
+                if (!(data.reviewAdd == "Done")) {
+                  _context15.next = 9;
+                  break;
+                }
 
+                alert("Your review is successful!");
+                window.location.href = "/#/order";
+                _context15.next = 9;
+                return this.confirmReview(review.orderid);
 
-              case 5:
+              case 9:
               case "end":
-                return _context11.stop();
+                return _context15.stop();
             }
           }
-        }, _callee11);
+        }, _callee15, this);
       }));
 
-      function createReview(_x6) {
+      function createReview(_x10) {
         return _createReview.apply(this, arguments);
       }
 
@@ -1620,7 +1844,8 @@ var Index = /*#__PURE__*/function (_React$Component12) {
         path: "/detail"
       }, /*#__PURE__*/React.createElement(Detailpage, {
         books: this.state.books,
-        createOrder: this.createOrder
+        createOrder: this.createOrder,
+        curUserid: this.state.curUserid
       })), /*#__PURE__*/React.createElement(ReactRouterDOM.Route, {
         path: "/signup"
       }, /*#__PURE__*/React.createElement(Signup, {
@@ -1632,11 +1857,15 @@ var Index = /*#__PURE__*/function (_React$Component12) {
       })), /*#__PURE__*/React.createElement(ReactRouterDOM.Route, {
         path: "/order"
       }, /*#__PURE__*/React.createElement(OrderPage, {
-        orders: this.state.orders
+        orders: this.state.orders,
+        curUserid: this.state.curUserid,
+        confirmDelivered: this.confirmDelivered,
+        getCurOrder: this.getCurOrder
       })), /*#__PURE__*/React.createElement(ReactRouterDOM.Route, {
         path: "/review"
       }, /*#__PURE__*/React.createElement(ReviewPage, {
-        createReview: this.createReview
+        createReview: this.createReview,
+        curOrder: this.state.curOrder
       })), /*#__PURE__*/React.createElement(ReactRouterDOM.Route, {
         path: "/addbook"
       }, /*#__PURE__*/React.createElement(AddBookPage, {
