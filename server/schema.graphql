@@ -27,7 +27,7 @@ type Book {
   category: String
   course: String
   photo: String
-  ownerid: Int!
+  ownerid: String!
 }
 
 type Order {

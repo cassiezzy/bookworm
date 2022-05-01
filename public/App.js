@@ -842,12 +842,42 @@ var AddBookPage = /*#__PURE__*/function (_React$Component9) {
     _this5.handleSubmit = _this5.handleSubmit.bind(_assertThisInitialized(_this5));
     _this5.handleChange = _this5.handleChange.bind(_assertThisInitialized(_this5));
     _this5.state = {
-      img: "/images/upload.png"
+      img: "/images/upload.png",
+      ownerid: ''
     };
     return _this5;
   }
 
   _createClass(AddBookPage, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.setState({
+                  ownerid: this.props.curUserid
+                }, function () {
+                  console.log("hello");
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount2.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
@@ -860,10 +890,10 @@ var AddBookPage = /*#__PURE__*/function (_React$Component9) {
         course: form.bk_course.value,
         description: form.bk_des.value,
         photo: this.state.img,
-        ownerid: "1" //   ownerid:this.props.curUserid
-
+        //   ownerid:"1",
+        ownerid: this.props.curUserid
       };
-      console.log(book.ownerid);
+      console.log("ownerid" + book.ownerid);
       this.props.createBook(book);
       form.bk_title.value = "";
       form.bk_author.value = "";
@@ -1170,21 +1200,21 @@ function graphQLFetch(_x) {
 
 
 function _graphQLFetch() {
-  _graphQLFetch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(query) {
+  _graphQLFetch = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(query) {
     var variables,
         response,
         body,
         result,
         error,
         details,
-        _args11 = arguments;
-    return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        _args12 = arguments;
+    return regeneratorRuntime.wrap(function _callee12$(_context12) {
       while (1) {
-        switch (_context11.prev = _context11.next) {
+        switch (_context12.prev = _context12.next) {
           case 0:
-            variables = _args11.length > 1 && _args11[1] !== undefined ? _args11[1] : {};
-            _context11.prev = 1;
-            _context11.next = 4;
+            variables = _args12.length > 1 && _args12[1] !== undefined ? _args12[1] : {};
+            _context12.prev = 1;
+            _context12.next = 4;
             return fetch('/graphql', {
               method: 'POST',
               headers: {
@@ -1197,12 +1227,12 @@ function _graphQLFetch() {
             });
 
           case 4:
-            response = _context11.sent;
-            _context11.next = 7;
+            response = _context12.sent;
+            _context12.next = 7;
             return response.text();
 
           case 7:
-            body = _context11.sent;
+            body = _context12.sent;
             result = JSON.parse(body, jsonDateReviver);
 
             if (result.errors) {
@@ -1216,19 +1246,19 @@ function _graphQLFetch() {
               }
             }
 
-            return _context11.abrupt("return", result.data);
+            return _context12.abrupt("return", result.data);
 
           case 13:
-            _context11.prev = 13;
-            _context11.t0 = _context11["catch"](1);
-            alert("Error in sending data to server: ".concat(_context11.t0.message));
+            _context12.prev = 13;
+            _context12.t0 = _context12["catch"](1);
+            alert("Error in sending data to server: ".concat(_context12.t0.message));
 
           case 16:
           case "end":
-            return _context11.stop();
+            return _context12.stop();
         }
       }
-    }, _callee11, null, [[1, 13]]);
+    }, _callee12, null, [[1, 13]]);
   }));
   return _graphQLFetch.apply(this, arguments);
 }
@@ -1269,18 +1299,18 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "loadUserData",
     value: function () {
-      var _loadUserData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      var _loadUserData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 query = "query {\n            userList {\n                _id name email phone password purchase sell\n            }\n        }";
-                _context3.next = 3;
+                _context4.next = 3;
                 return graphQLFetch(query);
 
               case 3:
-                data = _context3.sent;
+                data = _context4.sent;
 
                 // console.log(data.userList)
                 if (data) {
@@ -1291,10 +1321,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
       function loadUserData() {
@@ -1306,20 +1336,20 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "createUser",
     value: function () {
-      var _createUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(user) {
+      var _createUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(user) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 query = "mutation userAdd($user: UserInputs!) {\n          userAdd(user: $user)\n        }";
-                _context4.next = 3;
+                _context5.next = 3;
                 return graphQLFetch(query, {
                   user: user
                 });
 
               case 3:
-                data = _context4.sent;
+                data = _context5.sent;
 
                 // this.loadData();
                 // console.log(data);
@@ -1331,10 +1361,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }));
 
       function createUser(_x2) {
@@ -1346,20 +1376,20 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "checkUser",
     value: function () {
-      var _checkUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(user) {
+      var _checkUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(user) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 query = "mutation userCheck($user: UserCheckInputs!) {\n            userCheck(user: $user)\n        }";
-                _context5.next = 3;
+                _context6.next = 3;
                 return graphQLFetch(query, {
                   user: user
                 });
 
               case 3:
-                data = _context5.sent;
+                data = _context6.sent;
 
                 // this.loadData();
                 // console.log(data);
@@ -1378,10 +1408,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
 
       function checkUser(_x3) {
@@ -1393,18 +1423,18 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "loadBookData",
     value: function () {
-      var _loadBookData2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+      var _loadBookData2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
                 query = "query {\n          bookList {\n            id title author price description\n            category course photo ownerid\n          }\n        }";
-                _context6.next = 3;
+                _context7.next = 3;
                 return graphQLFetch(query);
 
               case 3:
-                data = _context6.sent;
+                data = _context7.sent;
 
                 if (data) {
                   this.setState({
@@ -1414,10 +1444,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
 
       function loadBookData() {
@@ -1429,20 +1459,20 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "createBook",
     value: function () {
-      var _createBook = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(book) {
+      var _createBook = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(book) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 query = "mutation bookAdd($book: BookInputs!) {\n          bookAdd(book: $book) {\n            _id\n          }\n        }";
-                _context7.next = 3;
+                _context8.next = 3;
                 return graphQLFetch(query, {
                   book: book
                 });
 
               case 3:
-                data = _context7.sent;
+                data = _context8.sent;
 
                 if (data) {
                   this.loadBookData();
@@ -1451,10 +1481,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
 
       function createBook(_x4) {
@@ -1466,18 +1496,18 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "loadOrderData",
     value: function () {
-      var _loadOrderData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+      var _loadOrderData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 query = "query {\n          orderList {\n            id booktitle buyerid status created\n          }\n        }";
-                _context8.next = 3;
+                _context9.next = 3;
                 return graphQLFetch(query);
 
               case 3:
-                data = _context8.sent;
+                data = _context9.sent;
 
                 if (data) {
                   this.setState({
@@ -1487,10 +1517,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
 
       function loadOrderData() {
@@ -1502,20 +1532,20 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "createOrder",
     value: function () {
-      var _createOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(order) {
+      var _createOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(order) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 query = "mutation orderAdd($order: OrderInputs!) {\n          orderAdd(order: $order) {\n            _id\n          }\n        }";
-                _context9.next = 3;
+                _context10.next = 3;
                 return graphQLFetch(query, {
                   order: order
                 });
 
               case 3:
-                data = _context9.sent;
+                data = _context10.sent;
 
                 if (data) {
                   this.loadOrderData();
@@ -1524,10 +1554,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context9.stop();
+                return _context10.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee10, this);
       }));
 
       function createOrder(_x5) {
@@ -1539,20 +1569,20 @@ var Index = /*#__PURE__*/function (_React$Component12) {
   }, {
     key: "createReview",
     value: function () {
-      var _createReview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(review) {
+      var _createReview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(review) {
         var query, data;
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
                 query = "mutation reviewAdd($review: ReviewInputs!) {\n          reviewAdd(review: $review)\n        }";
-                _context10.next = 3;
+                _context11.next = 3;
                 return graphQLFetch(query, {
                   review: review
                 });
 
               case 3:
-                data = _context10.sent;
+                data = _context11.sent;
 
                 if (data.reviewAdd == "Done") {
                   alert("Your review is successful!");
@@ -1563,10 +1593,10 @@ var Index = /*#__PURE__*/function (_React$Component12) {
 
               case 5:
               case "end":
-                return _context10.stop();
+                return _context11.stop();
             }
           }
-        }, _callee10);
+        }, _callee11);
       }));
 
       function createReview(_x6) {

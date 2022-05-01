@@ -590,7 +590,15 @@ class AddBookPage extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             img:"/images/upload.png",
+            ownerid:'',
         }
+    }
+    async componentDidMount() {
+        await this.setState({
+            ownerid: this.props.curUserid,
+        }, () => { console.log("hello") })
+        // console.log(this.state.ownerid)
+        // console.log(this.props.curUserid)
     }
     handleSubmit(e) {
         e.preventDefault();
@@ -603,10 +611,10 @@ class AddBookPage extends React.Component {
           course:form.bk_course.value,
           description:form.bk_des.value,
           photo: this.state.img,
-          ownerid:"1",
-        //   ownerid:this.props.curUserid
+        //   ownerid:"1",
+          ownerid:this.props.curUserid
         }
-        console.log(book.ownerid)
+        console.log("ownerid"+book.ownerid)
         this.props.createBook(book);
         form.bk_title.value="";form.bk_author.value="";form.bk_price.value=0;form.bk_category.value="";form.bk_course.value="";form.bk_des.value="";
         // this.setState({img:"/images/1.png"})// form.bk_photo.value="";
